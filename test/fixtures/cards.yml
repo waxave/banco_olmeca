@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  expiration_month: 1
+  expiration_year: 1
+  cvv: 1
+  pin: 1
+  balance: 9.99
+  kind: 1
+  status: 1
+  default: false
+  account: one
+
+two:
+  number: MyString
+  expiration_month: 1
+  expiration_year: 1
+  cvv: 1
+  pin: 1
+  balance: 9.99
+  kind: 1
+  status: 1
+  default: false
+  account: two
