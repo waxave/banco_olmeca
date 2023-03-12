@@ -3,21 +3,6 @@ require "test_helper"
 class CardTest < ActiveSupport::TestCase
   include BCrypt
 
-
-    #     t.string "number", limit: 16
-    # t.integer "expiration_month", limit: 2
-    # t.integer "expiration_year", limit: 4
-    # t.integer "cvv", limit: 3
-    # t.integer "pin", limit: 4
-    # t.decimal "balance"
-    # t.integer "kind"
-    # t.integer "status"
-    # t.boolean "default"
-    # t.integer "account_id", null: false
-    # t.datetime "created_at", null: false
-    # t.datetime "updated_at", null: false
-    # t.index ["account_id"], name: "index_cards_on_account_id"
-
   test 'create a new card without errors' do
     @account = Account.create(
       name: 'account without errors',
