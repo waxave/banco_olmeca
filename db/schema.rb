@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_12_194331) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_12_202411) do
   create_table "accounts", force: :cascade do |t|
     t.string "name"
     t.string "clabe", limit: 18
@@ -38,5 +38,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_12_194331) do
     t.index ["account_id"], name: "index_cards_on_account_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "name"
+    t.string "contactable_type", null: false
+    t.integer "contactable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_contacts_on_account_id"
+    t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable"
+  end
+
   add_foreign_key "cards", "accounts"
+  add_foreign_key "contacts", "accounts"
 end
