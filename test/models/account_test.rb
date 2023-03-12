@@ -4,7 +4,7 @@ class AccountTest < ActiveSupport::TestCase
   include BCrypt
 
   test 'create a new account without errors' do
-    account = Account.create!(
+    @account = Account.create(
       name: 'account without errors',
       phone: '0123456789',
       email: 'without@errors.com',
@@ -12,7 +12,7 @@ class AccountTest < ActiveSupport::TestCase
       password: Password.create('meh')
     )
 
-    assert_empty(account.errors)
+    assert_empty(@account.errors)
   end
 
   test 'has errors when email has been taken' do
