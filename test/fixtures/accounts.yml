@@ -1,17 +1,33 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  clabe: MyString
-  phone: MyString
-  email: MyString
-  balance: 9.99
+  name: 'account 1'
+  phone: 0123456789
+  email: 'one@example.com'
+  clabe: 'SYXB'
+  balance: 80000
   password_digest: <%= BCrypt::Password.create("secret") %>
 
 two:
-  name: MyString
-  clabe: MyString
-  phone: MyString
-  email: MyString
-  balance: 9.99
+  name: 'account 2'
+  phone: 0123456789
+  email: 'two@example.com'
+  clabe: 'HKLS'
+  balance: 150000
+  password_digest: <%= BCrypt::Password.create("secret") %>
+
+email_repeated:
+  name: 'account 2'
+  phone: 0123456789
+  email: 'one@example.com'
+  clabe: 'OXRE'
+  balance: 150000
+  password_digest: <%= BCrypt::Password.create("secret") %>
+
+phone_incorrect:
+  name: 'account 2'
+  phone: '1423'
+  email: 'example@example.com'
+  clabe: 'OXRE'
+  balance: 150000
   password_digest: <%= BCrypt::Password.create("secret") %>
