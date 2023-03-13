@@ -8,10 +8,6 @@ class AccountValidator < ApplicationService
 
   def call
     account = Account.find_by_email(email)
-    puts "account = #{account.inspect}"
-    puts "##############################################"
-    puts "##############################################"
-    puts "##############################################"
     if account&.authenticate(password)
       OpenStruct.new({ success?: true, payload: account })
     else

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full bg-gray-100">
   <head>
     <title>Banco Olmeca</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -14,9 +14,50 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+  <body class="h-full">
+    <div class="min-h-full">
+      <nav class="bg-[#43A4AB]">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <%= image_tag("logos/small.png", alt: "Banco Olmeca", class: 'h-8 w-8') %>
+              </div>
+              <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                  <a href="#" class="bg-[#1A5B61] text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Balance</a>
+                  <a href="#" class="text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Enviar</a>
+                  <a href="#" class="text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Recibir</a>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-4 flex items-center md:ml-6">
+                <div class="relative ml-3">
+                  <div>
+                    <div type="button" class="flex max-w-xs items-center rounded-full bg-[#43A4AB] px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                      <a href="<%= root_path %>">
+                        <%= image_tag("logout.png", alt: "rss feed", class: 'h-8 w-8 rounded-full') %>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900"><%= page %></h1>
+        </div>
+      </header>
+      <main>
+        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          <%= yield %>
+        </div>
+      </main>
+    </div>
   </body>
 </html>
