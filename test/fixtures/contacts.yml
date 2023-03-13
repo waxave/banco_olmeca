@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+account_one:
   account: one
-  name: MyString
-  contactable: one
-  contactable_type: Contactable
+  name: "new contact"
+  contactable: two (Account)
 
-two:
+card_debit:
   account: two
-  name: MyString
-  contactable: two
-  contactable_type: Contactable
+  name: "new contact"
+  contactable: debit (Card)
