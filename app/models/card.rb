@@ -3,7 +3,7 @@ class Card < ApplicationRecord
 
   validates :pin, presence: true, length: { is: 4 }
 
-  attribute :balance, :decimal, default: 0
+  attribute :balance, :decimal, default: 250_000
   enum :kind, %i[debit credit], default: :debit
   enum :status, %i[enabled disabled], default: :enabled
   attribute :default, :boolean, default: false

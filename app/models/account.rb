@@ -8,6 +8,7 @@ class Account < ApplicationRecord
   alias contacts contact
   alias operations operation
 
+  attribute :balance, :decimal, default: 250_000
   validates :name, presence: true
   validates :phone, presence: true, length: { is: 10 }
   validates :password, presence: true
