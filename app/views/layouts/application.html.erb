@@ -8,9 +8,9 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <link rel="apple-touch-icon" sizes="180x180" href="logos/large.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="logos/medium.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="logos/small.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= image_path("logos/large.png") %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= image_path("logos/medium.png") %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= image_path("logos/small.png") %>">
     <%= javascript_importmap_tags %>
   </head>
 

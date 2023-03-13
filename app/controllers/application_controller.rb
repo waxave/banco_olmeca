@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :logged_in?
 
   def logged_in?
-    session.clear
+    # session.clear
     return redirect_to(new_account_path) unless current_user.present?
 
     # session.clear
