@@ -1,25 +1,41 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  number: MyString
-  expiration_month: 1
-  expiration_year: 1
-  cvv: 1
-  pin: 1
-  balance: 9.99
-  kind: 1
+debit:
+  pin: 1234
+  balance: 5000
+  kind: :debit
   status: 1
-  default: false
+  default: true
   account: one
 
-two:
-  number: MyString
-  expiration_month: 1
-  expiration_year: 1
-  cvv: 1
+credit:
+  pin: 5678
+  balance: 5000
+  kind: :credit
+  status: 1
+  default: true
+  account: two
+
+pin_invalid:
   pin: 1
-  balance: 9.99
-  kind: 1
+  balance: 5000
+  kind: :credit
+  status: 1
+  default: true
+  account: two
+
+debit_two:
+  pin: 1980
+  balance: 9882
+  kind: :debit
+  status: 1
+  default: true
+  account: two
+
+credit_two:
+  pin: 8291
+  balance: 12222
+  kind: :credit
   status: 1
   default: false
   account: two
