@@ -100,8 +100,13 @@ class Operation < ApplicationRecord
 
     return unless operationable.present? || operation_account.present?
 
-    account = Account.for_operation(operation_account).first
-    card = Card.for_operation(operation_account).first
+    if operation_account.present?
+      account = Account.find_by_id(operation_account)
+      card = Card.find_by_id(operation_account)
+    else
+      account = Account.for_operation(operation_account).first
+      card = Card.for_operation(operation_account).first
+    end
 
     self.operationable = account.present? ? account : card
   end

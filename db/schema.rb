@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_12_205540) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
     t.string "name"
     t.string "clabe", limit: 18
@@ -25,24 +28,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_12_205540) do
   create_table "cards", force: :cascade do |t|
     t.string "number", limit: 16
     t.integer "expiration_month", limit: 2
-    t.integer "expiration_year", limit: 4
-    t.integer "cvv", limit: 3
-    t.integer "pin", limit: 4
+    t.integer "expiration_year"
+    t.integer "cvv"
+    t.integer "pin"
     t.decimal "balance"
     t.integer "kind"
     t.integer "status"
     t.boolean "default"
-    t.integer "account_id", null: false
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_cards_on_account_id"
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.integer "account_id", null: false
+    t.bigint "account_id", null: false
     t.string "name"
     t.string "contactable_type", null: false
-    t.integer "contactable_id", null: false
+    t.bigint "contactable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_contacts_on_account_id"
@@ -50,12 +53,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_12_205540) do
   end
 
   create_table "operations", force: :cascade do |t|
-    t.integer "account_id", null: false
+    t.bigint "account_id", null: false
     t.string "concept"
     t.decimal "amount"
     t.integer "kind"
     t.string "operationable_type", null: false
-    t.integer "operationable_id", null: false
+    t.bigint "operationable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_operations_on_account_id"
