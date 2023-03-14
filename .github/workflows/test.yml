@@ -30,7 +30,7 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
-          bin/bundle install --jobs 4 --retry 3
+          bin/bundle install --full-index --jobs 4 --retry 3
       - name: Set up database
         run: |
           bin/bundle exec rails db:create
