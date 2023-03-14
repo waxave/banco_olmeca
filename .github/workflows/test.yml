@@ -24,8 +24,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
-         with:
-          bundler-cache: false
+        with:
+          bundler-cache: true
       - name: Set up rails
         run: |
           sudo apt-get -yqq install libpq-dev
