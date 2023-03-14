@@ -61,6 +61,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem 'spring'
   gem 'rubocop', '~> 1.48'
+  gem 'dockerfile-rails', '>= 1.2'
 end
 
 group :test do
@@ -75,8 +76,6 @@ gem 'bcrypt', '~> 3.1'
 gem 'tailwindcss-rails', '~> 2.0'
 
 gem 'foreman', '~> 0.87.2'
-
-gem 'dockerfile-rails', '>= 1.2', :group => :development
 
 gem 'pg', '~> 1.4'
 
