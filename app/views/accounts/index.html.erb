@@ -1,1 +1,11 @@
-Hi: <%= @current_user.name %>
+<div class="grid grid-cols-4 gap-4">
+  <div>
+    <%= render partial: "balance", locals: { balance: current_user.balance } %>
+    <%= render partial: "card", collection: @current_user.cards, locals: { name: current_user.name } %>
+  </div>
+
+  <div class="col-span-3">
+    <div class="bg-white p-8 rounded-md w-full">
+    </div>
+  </div>
+</div>

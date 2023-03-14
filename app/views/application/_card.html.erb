@@ -1,0 +1,21 @@
+<div class="font-['Raleway'] grid grid-cols-4 gap-0 items-center bg-gradient-to-r bg-[#d3d3d3] p-6 gap-8 rounded-lg border-2 border-[#1A5B61] mb-5">
+  <div class="col-span-3">
+    <p class="text-left text-lg text-[#1A5B61] font-bold">
+      <%= number_to_currency(card.balance, unit: '$', precision: 2, delimiter: '.', separator: ',') %>
+    </p>
+  </div>
+  <div class="col-span-1">
+    <%= image_tag("logos/small.png", alt: "Banco Olmeca", class: 'h-8 w-8 content-center') %>
+  </div>
+  <div class="col-span-4 mt-2 mb-2">
+    <p class="text-center text-xl text-[#1A5B61] font-bold">
+      <%= display_card(card.number) %>
+    </p>
+  </div>
+  <div class="col-span-2">
+    <%= card.kind %>
+  </div>
+  <div class="col-span-2 text-right">
+    <%= card.expiration_month %>/<%= card.expiration_year %>
+  </div>
+</div>
