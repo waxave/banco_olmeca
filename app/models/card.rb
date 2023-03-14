@@ -13,6 +13,7 @@ class Card < ApplicationRecord
   before_create :expiration_month_assignation
   before_create :expiration_year_assignation
   before_create :assing_as_default
+  after_create :create_default_operations
 
   private
 
@@ -35,7 +36,7 @@ class Card < ApplicationRecord
   end
 
   def assing_as_default
-    first_card = Card.where(account_id: self.account_id, default: true)
+    first_card = Card.where(account_id: account_id, default: true)
 
     self.default = first_card.present? ? false : true
   end
@@ -49,5 +50,60 @@ class Card < ApplicationRecord
     nine_ascii_char_code = '9'.ord
 
     (0...size).map { rand(zero_ascii_char_code..nine_ascii_char_code).chr }.join
+  end
+
+  def create_default_operations
+    Operation.create(
+      account_id: account_id,
+      operationable_id: id,
+      operationable_type: 'Card',
+      kind: :deposit,
+      amount: 4000,
+      concept: 'new deposit'
+    )
+
+    Operation.create(
+      account_id: account_id,
+      operationable_id: id,
+      operationable_type: 'Card',
+      kind: :deposit,
+      amount: 4000,
+      concept: 'new deposit'
+    )
+    Operation.create(
+      account_id: account_id,
+      operationable_id: id,
+      operationable_type: 'Card',
+      kind: :transfer,
+      amount: 4000,
+      concept: 'new transfer'
+    )
+
+    Operation.create(
+      account_id: account_id,
+      operationable_id: id,
+      operationable_type: 'Card',
+      kind: :transfer,
+      amount: 4000,
+      concept: 'new transfer'
+    )
+
+    Operation.create(
+      account_id: account_id,
+      operationable_id: id,
+      operationable_type: 'Card',
+      kind: :withdrawal,
+      amount: 4000,
+      concept: 'new withdrawal'
+    )
+
+    Operation.create(
+      account_id: account_id,
+      operationable_id: id,
+      operationable_type: 'Card',
+      kind: :withdrawal,
+      amount: 4000,
+      concept: 'new withdrawal'
+    )
   end
 end
