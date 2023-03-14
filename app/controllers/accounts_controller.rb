@@ -2,6 +2,10 @@ class AccountsController < ApplicationController
   layout 'sessions', only: %i[new create]
   skip_before_action :logged_in?, only: %i[new create]
 
+  def index
+    @operations = @current_user.operations
+  end
+
   def new
     @account = Account.new
   end
