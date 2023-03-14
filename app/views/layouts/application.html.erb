@@ -8,6 +8,9 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;800&family=Roboto:wght@300;400;900&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="<%= image_path("logos/large.png") %>">
     <link rel="icon" type="image/png" sizes="32x32" href="<%= image_path("logos/medium.png") %>">
     <link rel="icon" type="image/png" sizes="16x16" href="<%= image_path("logos/small.png") %>">
@@ -24,10 +27,10 @@
                 <%= image_tag("logos/small.png", alt: "Banco Olmeca", class: 'h-8 w-8') %>
               </div>
               <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-4">
-                  <a href="#" class="bg-[#1A5B61] text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
-                  <a href="#" class="text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Transfer</a>
-                  <a href="#" class="text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-medium">Deposit</a>
+                <div class="ml-10 flex items-baseline space-x-4 font-['Raleway']">
+                  <a href="#" class="bg-[#1A5B61] text-white rounded-md px-3 py-2 text-sm font-bold" aria-current="page">Dashboard</a>
+                  <a href="#" class="text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-bold">Transfer</a>
+                  <a href="#" class="text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-bold">Deposit</a>
                 </div>
               </div>
             </div>
@@ -50,7 +53,7 @@
 
       <header class="bg-white shadow">
         <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-          <h1 class="text-3xl font-bold tracking-tight text-gray-900"><%= page %></h1>
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900 font-['Raleway']"><%= page %></h1>
         </div>
       </header>
       <main>

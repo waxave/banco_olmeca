@@ -24,12 +24,15 @@
     border-[#1A5B61] outline-none px-3 py-2 mt-2 w-full ring-1 ring-inset
     ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2
     focus:ring-inset focus:ring-[#1A5B61]" %>
-</div>
+  </div>
 
   <div class="inline">
-    <%= form.submit class: "font-['Raleway'] group relative flex w-full justify-center
+    <%= form.submit "Login", class: "font-['Raleway'] group relative flex w-full justify-center
     rounded-md bg-[#1A5B61] py-5 px-5 text-md font-semibold text-white
     hover:bg-[#43A4AB] focus-visible:outline focus-visible:outline-2
     focus-visible:outline-offset-2 focus-visible:outline-[#43A4AB]" %>
+  </div>
+  <div class="my-5">
+    <%= link_to "Register", new_account_path, class: "flex w-full justify-center rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium bg-[#7bdce4]" %>
   </div>
 <% end %>
