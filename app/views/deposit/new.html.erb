@@ -16,6 +16,16 @@
   <% end %>
 
   <div class="my-5">
+    <%= form.label 'Card' %>
+    <%= form.select :operationable_id, @cards.map { |a| ["#{display_card(a.number)}", a.id]},
+    { prompt: "Select your card" },
+    class: "block shadow rounded-md border
+    border-[#1A5B61] outline-none px-3 py-2 mt-2 w-full ring-1 ring-inset
+    ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2
+    focus:ring-inset focus:ring-[#1A5B61]" %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :concept, class: "font-['Raleway'] text-md" %>
     <%= form.text_field :concept, class: "block shadow rounded-md border
     border-[#1A5B61] outline-none px-3 py-2 mt-2 w-full ring-1 ring-inset

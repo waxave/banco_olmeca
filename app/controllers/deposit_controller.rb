@@ -1,6 +1,7 @@
 class DepositController < ApplicationController
   def new
     @operation = Operation.new
+    @cards = current_user.cards
   end
 
   def create
@@ -16,6 +17,6 @@ class DepositController < ApplicationController
   private
 
   def operation_params
-    params.require(:operation).permit(:concept, :amount)
+    params.require(:operation).permit(:concept, :amount, :operationable_id)
   end
 end
