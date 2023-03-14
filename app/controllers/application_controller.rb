@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     # session.clear
-    return redirect_to(new_sign_in_path) unless current_user.present?
+    return redirect_to(log_in_path) unless current_user.present?
 
     current_user.present?
   end

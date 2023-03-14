@@ -1,0 +1,33 @@
+<div>
+  <%= image_tag("logos/large.png", alt: "rss feed", class: 'mx-auto h-80 w-auto') %>
+  <h2 class="mt-6 text-center text-4xl font-bold tracking-tight text-gray-900 font-['Raleway']">Banco Olmeca</h2>
+</div>
+
+<%= form_with(model: @account, url: log_in_path, class: "contents") do |form| %>
+  <% flash.each do |message_type, message| %>
+    <%= content_tag(:div, message, class: "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative") %>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :email, class: "font-['Raleway'] text-md" %>
+    <%= form.text_field :email, class: "block shadow rounded-md border
+    border-[#1A5B61] outline-none px-3 py-2 mt-2 w-full ring-1 ring-inset
+    ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2
+    focus:ring-inset focus:ring-[#1A5B61]" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :password, class: "font-['Raleway'] text-md" %>
+    <%= form.password_field :password, class: "block shadow rounded-md border
+    border-[#1A5B61] outline-none px-3 py-2 mt-2 w-full ring-1 ring-inset
+    ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2
+    focus:ring-inset focus:ring-[#1A5B61]" %>
+</div>
+
+  <div class="inline">
+    <%= form.submit class: "font-['Raleway'] group relative flex w-full justify-center
+    rounded-md bg-[#1A5B61] py-5 px-5 text-md font-semibold text-white
+    hover:bg-[#43A4AB] focus-visible:outline focus-visible:outline-2
+    focus-visible:outline-offset-2 focus-visible:outline-[#43A4AB]" %>
+  </div>
+<% end %>

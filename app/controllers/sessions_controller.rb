@@ -1,5 +1,5 @@
-class SignInController < ApplicationController
-  layout 'sign_in', only: %i[new]
+class SessionsController < ApplicationController
+  layout 'sessions', only: %i[new]
   skip_before_action :logged_in?, only: %i[new create]
 
   def new
@@ -13,8 +13,14 @@ class SignInController < ApplicationController
       session[:account_id] = validation.payload.id
       redirect_to root_path
     else
-      redirect_to new_sign_in_path, notice: validation.error
+      redirect_to log_in_path, notice: validation.error
     end
+  end
+
+  def destroy
+    session.delete(:account_id)
+    @current_user = nil
+    redirect_to root_path
   end
 
   def account_params
