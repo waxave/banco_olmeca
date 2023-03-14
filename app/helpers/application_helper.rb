@@ -7,6 +7,8 @@ module ApplicationHelper
       'New Transfer'
     when new_deposit_path
       'New Deposit'
+    when new_withdraw_path
+      'New Withdrawal'
     else
       'Dashboard'
     end

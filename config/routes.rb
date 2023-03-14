@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :accounts, only: %i[index new create]
   resources :transfer, only: %i[new create]
   resources :deposit, only: %i[new create]
+  resources :withdraw, only: %i[new create]
 
   get 'log-in', to: 'sessions#new'
   post 'log-in', to: 'sessions#create'

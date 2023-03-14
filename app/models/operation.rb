@@ -42,6 +42,15 @@ class Operation < ApplicationRecord
       )
       new(transfer_params)
     end
+
+    def new_withdraw(transfer_params, current_account)
+      transfer_params = transfer_params.merge(
+        account_id: current_account,
+        operation_account: current_account,
+        kind: :withdrawal
+      )
+      new(transfer_params)
+    end
   end
 
   private
@@ -87,7 +96,9 @@ class Operation < ApplicationRecord
   end
 
   def set_operation_account
-    return unless operation_account.present?
+    return self.operationable = Card.find(operationable_id) if operationable_id.present?
+
+    return unless operationable.present? || operation_account.present?
 
     account = Account.for_operation(operation_account).first
     card = Card.for_operation(operation_account).first
