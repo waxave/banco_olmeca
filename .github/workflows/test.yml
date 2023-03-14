@@ -31,7 +31,7 @@ jobs:
           bin/bundle install --jobs 4 --retry 3
       - name: Set up database
         run: |
-          bin/rails db:create
-          bin/rails db:migrate
+          bin/rake db:create
+          bin/rake db:migrate
       - name: Run tests
         run: bin/rake
