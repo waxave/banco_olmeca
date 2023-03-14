@@ -24,8 +24,13 @@ jobs:
         uses: actions/checkout@v3
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
-        with:
+         with:
           bundler-cache: false
+      - name: Set up rails
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bin/bundle install --jobs 4 --retry 3
       - name: Set up database
         run: |
           bin/bundle exec rails db:create
