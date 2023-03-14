@@ -22,8 +22,6 @@ jobs:
         options: --entrypoint redis-server
 
     steps:
-      runs-on: ubuntu-latest
-      steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
       - uses: borales/actions-yarn@v2.0.0
