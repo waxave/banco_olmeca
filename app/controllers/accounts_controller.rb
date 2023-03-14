@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  layout 'sign_in', only: %i[new]
+  layout 'sessions', only: %i[new create]
   skip_before_action :logged_in?, only: %i[new create]
 
   def new
@@ -7,17 +7,18 @@ class AccountsController < ApplicationController
   end
 
   def create
-    validation = AccountValidator.call(account_params)
+    @account = Account.new(account_params)
 
-    if validation&.success?
-      session[:account_id] = validation.payload.id
-      redirect_to root_path, success: 'Subscription was successfully created.'
+    if @account.save
+      redirect_to account_url(@account), notice: 'Account created.'
     else
-      redirect_to new_account_path, notice: validation.error
+      render :new, status: :unprocessable_entity
     end
   end
 
+  private
+
   def account_params
-    params.require(:account).permit(:email, :password)
+    params.require(:account).permit(:name, :clabe, :phone, :email, :balance, :password, :password_confirmation)
   end
 end
