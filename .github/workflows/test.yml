@@ -25,7 +25,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          bundler-cache: false
       - name: Set up database
         run: |
           bin/bundle exec rails db:create
