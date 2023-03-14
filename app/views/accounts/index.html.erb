@@ -1,6 +1,6 @@
 <div class="grid grid-cols-4 gap-4">
   <div>
-    <%= render partial: "balance", locals: { balance: current_user.balance } %>
+    <%= render partial: "balance", locals: { balance: @current_user.balance } %>
     <%= render partial: "card", collection: @current_user.cards, locals: { name: current_user.name } %>
   </div>
 

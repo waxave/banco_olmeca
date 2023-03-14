@@ -10,13 +10,15 @@ class Account < ApplicationRecord
 
   attribute :balance, :decimal, default: 250_000
   validates :name, presence: true
-  validates :phone, presence: true, length: { is: 10 }
+  validates :phone, presence: true, length: { is: 10 }, uniqueness: true
   validates :password, presence: true
   validates :clabe, uniqueness: true
   validates :email, presence: true, uniqueness: true
 
   before_create :clabe_assignation
   after_create :create_default_cards
+
+  scope :for_operation, ->(query) { where('email = ? or clabe = ? or phone = ?', query, query, query).take(1) }
 
   private
 

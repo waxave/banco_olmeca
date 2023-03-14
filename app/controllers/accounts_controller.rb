@@ -3,7 +3,13 @@ class AccountsController < ApplicationController
   skip_before_action :logged_in?, only: %i[new create]
 
   def index
-    @operations = @current_user.operations
+    @operations = Operation.for_me(current_user.id)
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+    puts "@operations = #{current_user.operations.size}"
+    puts "@operations = #{@operations.size}"
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
   end
 
   def new
@@ -14,7 +20,7 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
 
     if @account.save
-      redirect_to account_url(@account), notice: 'Account created.'
+      redirect_to new_account_path, notice: 'Account created.'
     else
       render :new, status: :unprocessable_entity
     end

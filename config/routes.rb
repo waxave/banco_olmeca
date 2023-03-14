@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'accounts#index'
 
-  resources :accounts
+  resources :accounts, only: %i[index new create]
+  resources :transfer, only: %i[new create]
 
   get 'log-in', to: 'sessions#new'
   post 'log-in', to: 'sessions#create'
