@@ -1,6 +1,15 @@
 module ApplicationHelper
   def page
-    'Dashboard'
+    case request.path
+    when root_path
+      'Dashboard'
+    when new_transfer_path
+      'New Transfer'
+    when new_deposit_path
+      'New Deposit'
+    else
+      'Dashboard'
+    end
   end
 
   def display_card(card_number)

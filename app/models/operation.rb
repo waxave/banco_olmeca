@@ -11,6 +11,7 @@ class Operation < ApplicationRecord
 
   after_validation :create_operation
   before_validation :set_operation_account
+
   scope :for_me, ->(account_id) do
     account = Account.find_by_id(account_id)
 
@@ -29,6 +30,15 @@ class Operation < ApplicationRecord
       transfer_params = transfer_params.merge(
         account_id: current_account,
         kind: :transfer
+      )
+      new(transfer_params)
+    end
+
+    def new_deposit(transfer_params, current_account)
+      transfer_params = transfer_params.merge(
+        account_id: current_account,
+        operation_account: current_account,
+        kind: :deposit
       )
       new(transfer_params)
     end
