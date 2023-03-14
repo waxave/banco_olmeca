@@ -71,16 +71,23 @@ class Operation < ApplicationRecord
   end
 
   def create_deposit
+    operationable.reload
+
     operationable.update_attribute(:balance, operationable.balance + amount)
   end
 
   def create_withdrawal
+    operationable.reload
+
     return add_error(:withdrawal_error) if operationable.balance < amount
 
     operationable.update_attribute(:balance, operationable.balance - amount)
   end
 
   def create_transfer
+    account.reload
+    operationable.reload
+
     return add_error(:transfer_error) if account.balance < amount
 
     account.update_attribute(:balance, account.balance - amount)
@@ -96,18 +103,12 @@ class Operation < ApplicationRecord
   end
 
   def set_operation_account
+    return if operationable.present?
     return self.operationable = Card.find(operationable_id) if operationable_id.present?
 
-    return unless operationable.present? || operation_account.present?
+    account = Account.for_operation(operation_account).first
+    return self.operationable = account if account.present?
 
-    if operation_account.present?
-      account = Account.find_by_id(operation_account)
-      card = Card.find_by_id(operation_account)
-    else
-      account = Account.for_operation(operation_account).first
-      card = Card.for_operation(operation_account).first
-    end
-
-    self.operationable = account.present? ? account : card
+    self.operationable = Card.for_operation(operation_account).first
   end
 end

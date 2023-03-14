@@ -15,7 +15,7 @@ class Card < ApplicationRecord
   before_create :assing_as_default
   after_create :create_default_operations
 
-  scope :for_operation, ->(query) { where('number = ?', query).take(1) }
+  scope :for_operation, ->(query) { where('number = ?', query.to_s).take(1) }
 
   private
 

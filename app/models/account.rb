@@ -18,7 +18,15 @@ class Account < ApplicationRecord
   before_create :clabe_assignation
   after_create :create_default_cards
 
-  scope :for_operation, ->(query) { where('email = ? or clabe = ? or phone = ?', query, query, query).take(1) }
+  scope :for_operation, ->(query) do
+    where(
+      'id = ? OR email = ? OR clabe = ? OR phone = ?',
+      query.to_i,
+      query.to_s,
+      query.to_s,
+      query.to_s
+    ).take(1)
+  end
 
   private
 
