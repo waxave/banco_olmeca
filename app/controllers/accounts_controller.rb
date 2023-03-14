@@ -4,12 +4,6 @@ class AccountsController < ApplicationController
 
   def index
     @operations = Operation.for_me(current_user.id)
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts "@operations = #{current_user.operations.size}"
-    puts "@operations = #{@operations.size}"
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
   end
 
   def new
