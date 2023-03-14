@@ -23,8 +23,6 @@ default: &default
 
 development:
   <<: *default
-  username: webapps
-  password: web40441
   database: banco_olmeca_web_development
 
   # The specified database role being used to connect to postgres.
