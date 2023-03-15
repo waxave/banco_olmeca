@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   root 'accounts#index'
 
   resources :accounts, only: %i[index new create]
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   get 'log-in', to: 'sessions#new'
   post 'log-in', to: 'sessions#create'
   get 'log-out', to: 'sessions#destroy'
+  get 'api', to: 'apipie/apipies#index'
 
   namespace :api do
     resources :accounts do

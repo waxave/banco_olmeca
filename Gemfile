@@ -79,3 +79,5 @@ gem 'foreman', '~> 0.87.2'
 gem 'pg', '~> 1.4'
 
 gem 'redis', '~> 5.0'
+
+gem "apipie-rails", "~> 0.9.3"
