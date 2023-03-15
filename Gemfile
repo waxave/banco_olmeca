@@ -48,7 +48,6 @@ gem 'bootsnap', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", "~> 1.7"
 end
 
 group :development do
@@ -62,6 +61,7 @@ group :development do
   # gem 'spring'
   gem 'rubocop', '~> 1.48'
   gem 'dockerfile-rails', '>= 1.2'
+  gem 'debug', '~> 1.7'
 end
 
 group :test do
@@ -80,4 +80,3 @@ gem 'foreman', '~> 0.87.2'
 gem 'pg', '~> 1.4'
 
 gem 'redis', '~> 5.0'
-
