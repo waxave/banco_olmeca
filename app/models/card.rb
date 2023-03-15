@@ -17,6 +17,11 @@ class Card < ApplicationRecord
 
   scope :for_operation, ->(query) { where('number = ?', query.to_s).take(1) }
 
+  def as_json(options = {})
+    options[:except] ||= %i[pin cvv]
+    super(options)
+  end
+
   private
 
   def number_assignation

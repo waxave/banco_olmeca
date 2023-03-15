@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'log-out', to: 'sessions#destroy'
 
   namespace :api do
-    resources :accounts
+    resources :accounts do
+      resources :cards
+    end
+    resources :cards
   end
 end
