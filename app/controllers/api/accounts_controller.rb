@@ -11,7 +11,6 @@ class Api::AccountsController < ApiController
     end
   end
 
-  # GET /accounts
   api :GET, '/accounts', 'All existing accounts'
   def index
     @accounts = Account.all
@@ -19,14 +18,12 @@ class Api::AccountsController < ApiController
     render json: @accounts
   end
 
-  # GET /accounts/1
   api :GET, '/accounts/:id', 'Get an existing [Account]'
   param :id, :number, desc: 'id of the requested account'
   def show
     render json: @account
   end
 
-  # POST /accounts
   api :POST, '/accounts', 'Creates a new [Account]'
   param_group :account
   def create
@@ -39,7 +36,6 @@ class Api::AccountsController < ApiController
     end
   end
 
-  # PATCH/PUT /accounts/1
   api :PUT, '/accounts/:id', 'Update an existing [Account]'
   param_group :account
   def update
@@ -50,7 +46,6 @@ class Api::AccountsController < ApiController
     end
   end
 
-  # DELETE /accounts/1
   api :DELETE, '/accounts/:id', 'Delete and existing [Account]'
   param :id, :number, desc: 'id of the requested account'
   def destroy
