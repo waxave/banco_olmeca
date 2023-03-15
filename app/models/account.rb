@@ -28,6 +28,11 @@ class Account < ApplicationRecord
     ).take(1)
   end
 
+  def as_json(options = {})
+    options[:except] ||= [:password_digest]
+    super(options)
+  end
+
   private
 
   def clabe_assignation

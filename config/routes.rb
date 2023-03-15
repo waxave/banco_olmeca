@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   get 'log-in', to: 'sessions#new'
   post 'log-in', to: 'sessions#create'
   get 'log-out', to: 'sessions#destroy'
+
+  namespace :api do
+    resources :accounts
+  end
 end
