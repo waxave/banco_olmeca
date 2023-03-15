@@ -4,10 +4,9 @@ class Api::CardsController < ApiController
 
   def_param_group :card do
     param :card, Hash, desc: 'Card params' do
-      param :number, String, desc: 'Card number', required: true
-      param :pin, String, desc: 'Card pin', required: true
+      param :pin, Integer, desc: 'Card pin', required: true
       param :kind, String, desc: 'Card type', required: true
-      param :account_id, String, desc: 'Account related to this card', required: true
+      param :account_id, Integer, desc: 'Account related to this card', required: true
     end
   end
 
@@ -33,6 +32,7 @@ class Api::CardsController < ApiController
       render json: @card.errors, status: :unprocessable_entity
     end
   end
+
   api :PUT, '/cards/:id', 'Update an existing Card'
   param_group :card
   def update

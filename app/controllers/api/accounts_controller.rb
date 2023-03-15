@@ -11,7 +11,7 @@ class Api::AccountsController < ApiController
     end
   end
 
-  api :GET, '/accounts', 'All existing Accounts'
+  api :GET, '/accounts', 'All existing accounts'
   def index
     @accounts = Account.all
 
