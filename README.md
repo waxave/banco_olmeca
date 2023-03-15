@@ -31,3 +31,24 @@ bundle exec rails db:migrate
 ```sh
 ./bin/dev
 ```
+
+# Navigating the app
+
+Live url: [Banco Olmeca](https://banco-olmeca.waxave.cc/)
+## Create a new user
+
+![create a new account](./images/account-creation.png)
+## Login
+
+![create a new account](./images/login.png)
+## Dashboard
+
+![create a new account](./images/dashboard.png)
+## Operations
+
+ - Transfer
+![create a new account](./images/transfer.png)
+ - Deposit
+![create a new account](./images/deposit.png)
+ - Withdrawal
+![create a new account](./images/withdrawal.png)
