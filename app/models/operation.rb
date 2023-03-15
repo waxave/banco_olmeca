@@ -1,13 +1,22 @@
 class Operation < ApplicationRecord
+  ERRORS = {
+    account_not_found: 'Account not found',
+    withdrawal_error: 'The account don\'t have enough funds',
+    transfer_error: 'The account don\'t have enough funds',
+    invalid_operation: 'Invalid operation'
+  }.freeze
+
   attr_accessor :operation_account
 
   belongs_to :account
   belongs_to :operationable, polymorphic: true
 
+  enum :kind, %i[deposit withdrawal transfer], default: :deposit
+
   validates :concept, presence: true
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :operationable, presence: false
-  enum :kind, %i[deposit withdrawal transfer], default: :deposit
+  validates :kind, inclusion: { in: kinds.keys }
 
   after_validation :create_operation
   before_validation :set_operation_account
@@ -55,12 +64,6 @@ class Operation < ApplicationRecord
 
   private
 
-  ERRORS = {
-    account_not_found: 'Account not found',
-    withdrawal_error: 'The account don\'t have enough funds',
-    transfer_error: 'The account don\'t have enough funds'
-  }.freeze
-
   def create_operation
     unless operationable.present? && account.present?
       delete_error(:operationable)
@@ -103,8 +106,10 @@ class Operation < ApplicationRecord
   end
 
   def set_operation_account
+    # return add_error(:account_not_found) unless kinds.keys.include? kind
+
     return if operationable.present?
-    return self.operationable = Card.find(operationable_id) if operationable_id.present?
+    return self.operationable = Card.find_by_id(operationable_id) if operationable_id.present?
 
     account = Account.for_operation(operation_account).first
     return self.operationable = account if account.present?

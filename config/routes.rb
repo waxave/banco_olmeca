@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       resources :cards
       resources :operations
     end
-    resources :cards
+    resources :cards do
+      post :auth, on: :collection
+    end
     resources :operations
   end
 end

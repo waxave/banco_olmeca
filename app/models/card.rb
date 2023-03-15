@@ -1,4 +1,8 @@
 class Card < ApplicationRecord
+  ERRORS = {
+    card_not_found: 'Card not found'
+  }.freeze
+
   belongs_to :account
 
   validates :pin, presence: true, length: { is: 4 }
@@ -16,6 +20,7 @@ class Card < ApplicationRecord
   after_create :create_default_operations
 
   scope :for_operation, ->(query) { where('number = ?', query.to_s).take(1) }
+  scope :auth, ->(number, pin) { where('number = ? AND pin = ?', number.to_s, pin).take(1) }
 
   def as_json(options = {})
     options[:except] ||= %i[pin cvv]

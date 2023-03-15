@@ -8,7 +8,8 @@ class Api::OperationsController < ApiController
       param :amount, :number, desc: 'Operation amount', required: true
       param :kind, String, desc: 'Operation type [transfer, deposit, withdrawal]', required: true
       param :account_id, Integer, desc: 'Account related to this operation', required: true
-      param :operation_account, String, desc: 'Card number or Account clabe, email, phone', required: true
+      param :operationable_id, Integer, desc: 'Card id', required: false
+      param :operation_account, String, desc: 'Card number or Account clabe, email, phone', required: false
     end
   end
 
@@ -29,7 +30,7 @@ class Api::OperationsController < ApiController
     @operation = Operation.new(operation_params)
 
     if @operation.save
-      render json: @operation, status: :created, location: @operation
+      render json: @operation, status: :created
     else
       render json: @operation.errors, status: :unprocessable_entity
     end
@@ -64,6 +65,6 @@ class Api::OperationsController < ApiController
   end
 
   def operation_params
-    params.require(:operation).permit(:account_id, :concept, :amount, :kind, :operation_account)
+    params.require(:operation).permit(:account_id, :concept, :amount, :kind, :operationable_id, :operation_account)
   end
 end

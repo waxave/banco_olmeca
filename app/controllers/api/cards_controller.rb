@@ -10,6 +10,11 @@ class Api::CardsController < ApiController
     end
   end
 
+  def_param_group :auth do
+    param :number, String, desc: 'Card number', required: true
+    param :pin, Integer, desc: 'Card pin', required: true
+  end
+
   api :GET, '/cards', 'All existing cards'
   def index
     render json: @cards
@@ -27,7 +32,7 @@ class Api::CardsController < ApiController
     @card = Card.new(card_params)
 
     if @card.save
-      render json: @card, status: :created, location: @card
+      render json: @card, status: :created
     else
       render json: @card.errors, status: :unprocessable_entity
     end
@@ -49,6 +54,18 @@ class Api::CardsController < ApiController
     @card.destroy
   end
 
+  api :POST, '/cards/auth', 'Validates a card'
+  param_group :auth
+  def auth
+    @card = Card.auth(auth_card_params[:number], auth_card_params[:pin])
+
+    if @card.present?
+      render json: @card, status: :created
+    else
+      render json: { error: Card::ERRORS[:card_not_found] }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_card
@@ -63,5 +80,9 @@ class Api::CardsController < ApiController
 
   def card_params
     params.require(:card).permit(:number, :pin, :kind, :account_id)
+  end
+
+  def auth_card_params
+    params.permit(:number, :pin)
   end
 end
