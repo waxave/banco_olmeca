@@ -61,7 +61,6 @@ group :development do
   # gem 'spring'
   gem 'rubocop', '~> 1.48'
   gem 'dockerfile-rails', '>= 1.2'
-  gem 'debug', '~> 1.7'
 end
 
 group :test do
