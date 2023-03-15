@@ -47,8 +47,4 @@ class Api::CardsController < ApiController
   def card_params
     params.require(:card).permit(:number, :pin, :kind, :account_id)
   end
-
-  def account_params
-    params.permit(:account_id)
-  end
 end
