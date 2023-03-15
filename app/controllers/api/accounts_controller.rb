@@ -2,7 +2,7 @@ class Api::AccountsController < ApiController
   before_action :set_account, only: %i[show update destroy]
 
   def_param_group :account do
-    param :account, Hash, desc: 'Param description for all methods' do
+    param :account, Hash, desc: 'Account params' do
       param :name, String, desc: 'Account name', required: true
       param :phone, String, desc: 'Account phone', required: true
       param :email, String, desc: 'Account email', required: true
@@ -11,20 +11,20 @@ class Api::AccountsController < ApiController
     end
   end
 
-  api :GET, '/accounts', 'All existing accounts'
+  api :GET, '/accounts', 'All existing Accounts'
   def index
     @accounts = Account.all
 
     render json: @accounts
   end
 
-  api :GET, '/accounts/:id', 'Get an existing [Account]'
+  api :GET, '/accounts/:id', 'Get an existing Account'
   param :id, :number, desc: 'id of the requested account'
   def show
     render json: @account
   end
 
-  api :POST, '/accounts', 'Creates a new [Account]'
+  api :POST, '/accounts', 'Creates a new Account'
   param_group :account
   def create
     @account = Account.new(account_params)
@@ -36,7 +36,7 @@ class Api::AccountsController < ApiController
     end
   end
 
-  api :PUT, '/accounts/:id', 'Update an existing [Account]'
+  api :PUT, '/accounts/:id', 'Update an existing Account'
   param_group :account
   def update
     if @account.update(account_params)
@@ -46,7 +46,7 @@ class Api::AccountsController < ApiController
     end
   end
 
-  api :DELETE, '/accounts/:id', 'Delete and existing [Account]'
+  api :DELETE, '/accounts/:id', 'Delete and existing Account'
   param :id, :number, desc: 'id of the requested account'
   def destroy
     @account.destroy
