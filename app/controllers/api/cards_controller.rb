@@ -12,7 +12,7 @@ class Api::CardsController < ApiController
 
   def_param_group :auth do
     param :number, String, desc: 'Card number', required: true
-    param :pin, Integer, desc: 'Card pin', required: true
+    param :pin, String, desc: 'Card pin', required: true
   end
 
   api :GET, '/cards', 'All existing cards'

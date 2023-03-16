@@ -19,8 +19,15 @@ class Card < ApplicationRecord
   before_create :assing_as_default
   after_create :create_default_operations
 
-  scope :for_operation, ->(query) { where('number = ?', query.to_s).take(1) }
-  scope :auth, ->(number, pin) { where('number = ? AND pin = ?', number.to_s, pin).take(1) }
+  class << self
+    def for_operation(query)
+      Card.find_by(number: number)
+    end
+
+    def auth(number, pin)
+      Card.find_by(number: number, pin: pin, status: :enabled)
+    end
+  end
 
   def as_json(options = {})
     options[:except] ||= %i[pin cvv]

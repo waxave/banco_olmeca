@@ -18,14 +18,16 @@ class Account < ApplicationRecord
   before_create :clabe_assignation
   after_create :create_default_cards
 
-  scope :for_operation, ->(query) do
-    where(
-      'id = ? OR email = ? OR clabe = ? OR phone = ?',
-      query.to_i,
-      query.to_s,
-      query.to_s,
-      query.to_s
-    ).take(1)
+  class << self
+    def for_operation(query)
+      where(
+        'id = ? OR email = ? OR clabe = ? OR phone = ?',
+        query.to_i,
+        query.to_s,
+        query.to_s,
+        query.to_s
+      ).first
+    end
   end
 
   def as_json(options = {})
