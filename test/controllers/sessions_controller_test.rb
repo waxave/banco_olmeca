@@ -8,24 +8,24 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'log_in succesfully' do
-    @user_one = accounts(:one)
+    @account = FactoryBot.create(:account)
 
-    post log_in_path, params: { account: { email: @user_one.email, password: 'secret' } }
+    post log_in_path, params: { account: { email: @account.email, password: @account.password } }
     assert_response :redirect
     assert_redirected_to root_path
   end
 
   test 'log_in fails when has an invalid password or username' do
-    @user_one = accounts(:one)
+    @account = FactoryBot.create(:account)
 
-    post log_in_path, params: { account: { email: @user_one.email, password: 'other"_password' } }
+    post log_in_path, params: { account: { email: @account.email, password: 'other_password' } }
     assert_response :redirect
 
     assert_redirected_to log_in_path
   end
 
   test 'log_out successfully' do
-    @account = accounts(:one)
+    @account = FactoryBot.create(:account)
     sign_in(@account)
 
     get root_path

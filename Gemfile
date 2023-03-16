@@ -60,6 +60,11 @@ group :test do
   gem 'webdrivers'
 end
 
+group :development, :test do
+  gem 'faker', '~> 3.1'
+  gem 'factory_bot_rails', '~> 6.2'
+end
+
 gem 'bcrypt', '~> 3.1'
 
 gem 'tailwindcss-rails', '~> 2.0'
@@ -72,4 +77,6 @@ gem 'redis', '~> 5.0'
 
 gem 'apipie-rails', '~> 0.9.3'
 
-gem "rack-cors", "~> 2.0"
+gem 'rack-cors', '~> 2.0'
+
+gem 'rails-controller-testing', '~> 1.0'
