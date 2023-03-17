@@ -26,6 +26,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Compile assets
+        run: |
+          bin/bundle exec rails assets:precompile
       - name: Set up database
         run: |
           bin/bundle exec rails db:create
