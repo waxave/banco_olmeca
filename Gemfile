@@ -38,7 +38,7 @@ gem 'jbuilder'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', require: false
+gem 'bootsnap', '1.18.6', require: false
 
 # Use Sass to process CSS
 # gem 'sassc-rails'
@@ -49,6 +49,7 @@ gem 'bootsnap', require: false
 group :development do
   gem 'dockerfile-rails', '>= 1.2'
   gem 'rubocop', '~> 1.48'
+  gem 'ruby-lsp'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 end
@@ -61,8 +62,8 @@ group :test do
 end
 
 group :development, :test do
-  gem 'faker', '~> 3.1'
   gem 'factory_bot_rails', '~> 6.2'
+  gem 'faker', '~> 3.1'
 end
 
 gem 'bcrypt', '~> 3.1'

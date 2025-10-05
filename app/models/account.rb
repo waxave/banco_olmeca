@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
   has_secure_password
-  has_many :card
+  has_many :card, -> { order(:id) }
   has_many :contact
   has_many :operation
 

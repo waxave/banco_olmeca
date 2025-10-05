@@ -1,4 +1,4 @@
-<div class="font-['Roboto'] bg-[#fd938b] border-[#fd938b] grid grid-cols-10 gap-0 items-center p-6 gap-8 rounded-lg border-2 mb-5">
+<div id="<%= dom_id(operation) %>" class="font-['Roboto'] bg-[#fd938b] border-[#fd938b] grid grid-cols-10 gap-0 items-center p-6 gap-8 rounded-lg border-2 mb-5">
   <div class="col-span-1">
     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-off" width="50" height="50" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -12,9 +12,8 @@
   </div>
   <div class="col-span-7">
     <p class="text-left text-lg text-[#774842] font-bold">
-      <%= operation.kind.titleize %>:
-      <%= operation.concept %>
-      - [<%= number_to_currency(operation.amount, unit: '$', precision: 2, delimiter: '.', separator: ',') %>]
+      <%= operation.kind.titleize %>: <%= operation.concept %> -
+      [<%= number_to_currency(operation.amount, unit: '$', precision: 2, delimiter: '.', separator: ',') %>]
     </p>
   </div>
   <div class="col-span-2">

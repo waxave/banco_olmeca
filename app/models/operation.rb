@@ -21,7 +21,9 @@ class Operation < ApplicationRecord
   after_validation :create_operation
   before_validation :set_operation_account
 
-  scope :for_me, ->(account_id) do
+  after_create_commit :broadcast_operation
+
+  scope :for_me, lambda { |account_id|
     account = Account.find_by_id(account_id)
 
     where(
@@ -32,33 +34,33 @@ class Operation < ApplicationRecord
       account.id,
       account.cards.ids
     ).order(created_at: :desc)
-  end
+  }
 
   class << self
-    def new_transfer(transfer_params, current_account)
-      transfer_params = transfer_params.merge(
+    def new_transfer(params, current_account)
+      transfer_params = params.merge(
         account_id: current_account,
         kind: :transfer
       )
       new(transfer_params)
     end
 
-    def new_deposit(transfer_params, current_account)
-      transfer_params = transfer_params.merge(
+    def new_deposit(params, current_account)
+      deposit_params = params.merge(
         account_id: current_account,
         operation_account: current_account,
         kind: :deposit
       )
-      new(transfer_params)
+      new(deposit_params)
     end
 
-    def new_withdraw(transfer_params, current_account)
-      transfer_params = transfer_params.merge(
+    def new_withdraw(params, current_account)
+      withdraw_params = params.merge(
         account_id: current_account,
         operation_account: current_account,
         kind: :withdrawal
       )
-      new(transfer_params)
+      new(withdraw_params)
     end
   end
 
@@ -106,14 +108,33 @@ class Operation < ApplicationRecord
   end
 
   def set_operation_account
-    # return add_error(:account_not_found) unless kinds.keys.include? kind
+    add_error(:invalid_operation) and return unless self.class.kinds.key?(kind.to_s)
 
     return if operationable.present?
-    return self.operationable = Card.find_by_id(operationable_id) if operationable_id.present?
 
-    account = Account.for_operation(operation_account).first
-    return self.operationable = account if account.present?
+    self.operationable =
+      Card.find_by(id: operationable_id) ||
+      Account.for_operation(operation_account) ||
+      Card.for_operation(operation_account)
+  end
 
-    self.operationable = Card.for_operation(operation_account).first
+  def broadcast_operation
+    broadcast_prepend_to "operations_for_account_#{account.id}",
+                         target: 'operations',
+                         partial: 'operations/operation',
+                         locals: { operation: self }
+
+    broadcast_replace_to "balance_for_account_#{account.id}",
+                         target: 'balance',
+                         partial: 'application/balance',
+                         locals: { balance: account.balance }
+
+    if operationable.is_a?(Card) # rubocop:disable Style/GuardClause
+      broadcast_replace_to "card_#{operationable.id}",
+                           target: "card_#{operationable.id}",
+                           partial: 'application/card',
+                           locals: { card: operationable }
+
+    end
   end
 end

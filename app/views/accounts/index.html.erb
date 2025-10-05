@@ -1,13 +1,29 @@
 <div class="grid grid-cols-4 gap-4">
   <div>
-    <%= render partial: "balance", locals: { balance: @current_user.balance } %>
-    <%= render partial: "card", collection: @current_user.cards, locals: { name: current_user.name } %>
+    <!-- Balance -->
+    <turbo-frame id="balance">
+      <%= render partial: "application/balance", locals: { balance: @current_user.balance } %>
+    </turbo-frame>
+
+    <!-- Cards -->
+    <%= render partial: "application/card", collection: @current_user.cards, as: :card %>
   </div>
 
   <div class="col-span-3">
     <div class="bg-white p-8 rounded-md w-full">
-      <h1 class="text-xl font-['Raleway'] mb-5 text-bold">Operations</h1>
-      <%= render partial: "operation", collection: @operations %>
+      <h1 class="text-xl font-['Raleway'] mb-5 font-bold">Operations</h1>
+
+      <!-- Lista de operaciones -->
+      <turbo-frame id="operations">
+        <%= render partial: "operations/operations", locals: { operations: @operations } %>
+      </turbo-frame>
+
+      <!-- Suscripción a Turbo Streams -->
+      <%= turbo_stream_from "operations_for_account_#{@current_user.id}" %>
+      <%= turbo_stream_from "balance_for_account_#{@current_user.id}" %>
+      <% @current_user.cards.each do |card| %>
+        <%= turbo_stream_from "card_#{card.id}" %>
+      <% end %>
     </div>
   </div>
 </div>

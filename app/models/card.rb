@@ -20,12 +20,12 @@ class Card < ApplicationRecord
   after_create :create_default_operations
 
   class << self
-    def for_operation(query)
-      Card.find_by(number: number)
+    def for_operation(_query)
+      Card.find_by(number:)
     end
 
     def auth(number, pin)
-      Card.find_by(number: number, pin: pin, status: :enabled)
+      Card.find_by(number:, pin:, status: :enabled)
     end
   end
 
@@ -55,7 +55,7 @@ class Card < ApplicationRecord
   end
 
   def assing_as_default
-    first_card = Card.where(account_id: account_id, default: true)
+    first_card = Card.where(account_id:, default: true)
 
     self.default = first_card.present? ? false : true
   end
@@ -73,7 +73,7 @@ class Card < ApplicationRecord
 
   def create_default_operations
     Operation.create(
-      account_id: account_id,
+      account_id:,
       operationable_id: id,
       operationable_type: 'Card',
       kind: :deposit,
@@ -82,7 +82,7 @@ class Card < ApplicationRecord
     )
 
     Operation.create(
-      account_id: account_id,
+      account_id:,
       operationable_id: id,
       operationable_type: 'Card',
       kind: :deposit,
@@ -90,7 +90,7 @@ class Card < ApplicationRecord
       concept: 'new deposit'
     )
     Operation.create(
-      account_id: account_id,
+      account_id:,
       operationable_id: id,
       operationable_type: 'Card',
       kind: :transfer,
@@ -99,7 +99,7 @@ class Card < ApplicationRecord
     )
 
     Operation.create(
-      account_id: account_id,
+      account_id:,
       operationable_id: id,
       operationable_type: 'Card',
       kind: :transfer,
@@ -108,7 +108,7 @@ class Card < ApplicationRecord
     )
 
     Operation.create(
-      account_id: account_id,
+      account_id:,
       operationable_id: id,
       operationable_type: 'Card',
       kind: :withdrawal,
@@ -117,7 +117,7 @@ class Card < ApplicationRecord
     )
 
     Operation.create(
-      account_id: account_id,
+      account_id:,
       operationable_id: id,
       operationable_type: 'Card',
       kind: :withdrawal,
