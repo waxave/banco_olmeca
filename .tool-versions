@@ -1,2 +1,3 @@
 ruby 3.2.1
 nodejs lts
+postgres 18.1

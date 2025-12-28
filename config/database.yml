@@ -23,6 +23,7 @@ default: &default
 
 development:
   <<: *default
+  host: localhost
   database: banco_olmeca_web_development
 
   # The specified database role being used to connect to postgres.

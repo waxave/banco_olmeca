@@ -21,8 +21,6 @@ class Operation < ApplicationRecord
   after_validation :create_operation
   before_validation :set_operation_account
 
-  after_create_commit :broadcast_operation
-
   scope :for_me, lambda { |account_id|
     account = Account.find_by_id(account_id)
 

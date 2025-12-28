@@ -1,0 +1,24 @@
+2025-12-27 22:13:47.657 PST [46774] LOG:  starting PostgreSQL 18.1 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 15.2.1 20251112, 64-bit
+2025-12-27 22:13:47.658 PST [46774] LOG:  listening on IPv6 address "::1", port 5432
+2025-12-27 22:13:47.658 PST [46774] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-27 22:13:47.659 PST [46774] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-12-27 22:13:47.661 PST [46780] LOG:  database system was shut down at 2025-12-27 21:53:30 PST
+2025-12-27 22:13:47.664 PST [46774] LOG:  database system is ready to accept connections
+2025-12-27 22:16:47.747 PST [48328] FATAL:  role "waxave" does not exist
+2025-12-27 22:16:54.655 PST [48407] FATAL:  role "waxave" does not exist
+2025-12-27 22:17:08.624 PST [48547] FATAL:  role "waxave" does not exist
+2025-12-27 22:18:12.429 PST [49027] FATAL:  role "waxave" does not exist
+2025-12-27 22:18:47.761 PST [46778] LOG:  checkpoint starting: time
+2025-12-27 22:18:52.384 PST [46778] LOG:  checkpoint complete: wrote 46 buffers (0.3%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=4.611 s, sync=0.008 s, total=4.623 s; sync files=15, longest=0.002 s, average=0.001 s; distance=321 kB, estimate=321 kB; lsn=0/17B4688, redo lsn=0/17B4630
+2025-12-27 22:19:47.763 PST [49900] FATAL:  database "banco_olmeca_web_development" does not exist
+2025-12-27 22:22:53.448 PST [51578] ERROR:  database "banco_olmeca_web_development" already exists
+2025-12-27 22:22:53.448 PST [51578] STATEMENT:  CREATE DATABASE "banco_olmeca_web_development" ENCODING = 'unicode'
+2025-12-27 22:23:47.484 PST [46778] LOG:  checkpoint starting: time
+2025-12-27 22:24:01.986 PST [46774] LOG:  received fast shutdown request
+2025-12-27 22:24:01.990 PST [46774] LOG:  aborting any active transactions
+2025-12-27 22:24:01.991 PST [46774] LOG:  background worker "logical replication launcher" (PID 46783) exited with exit code 1
+2025-12-27 22:24:02.136 PST [46778] LOG:  checkpoint complete: wrote 958 buffers (5.8%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=14.525 s, sync=0.124 s, total=14.653 s; sync files=306, longest=0.003 s, average=0.001 s; distance=4372 kB, estimate=4372 kB; lsn=0/1BF98B0, redo lsn=0/1BF9820
+2025-12-27 22:24:02.137 PST [46778] LOG:  shutting down
+2025-12-27 22:24:02.137 PST [46778] LOG:  checkpoint starting: shutdown immediate
+2025-12-27 22:24:02.140 PST [46778] LOG:  checkpoint complete: wrote 0 buffers (0.0%), wrote 0 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=3935 kB; lsn=0/1BF9928, redo lsn=0/1BF9928
+2025-12-27 22:24:02.149 PST [46774] LOG:  database system is shut down
