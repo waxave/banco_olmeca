@@ -22,9 +22,9 @@ RUN gem update --system --no-document && \
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
-# Install packages needed to build gems
+# Install packages needed to build gems and assets
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev pkg-config
+    apt-get install --no-install-recommends -y build-essential libpq-dev pkg-config nodejs npm
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
