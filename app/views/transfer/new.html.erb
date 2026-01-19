@@ -32,11 +32,11 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :operation_account, class: "font-['Raleway'] text-md" %>
+    <%= form.label :operation_account, "Cuenta destino (email, CLABE, teléfono o ID)", class: "font-['Raleway'] text-md" %>
     <%= form.text_field :operation_account, class: "block shadow rounded-md border
     border-[#1A5B61] outline-none px-3 py-2 mt-2 w-full ring-1 ring-inset
     ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2
-    focus:ring-inset focus:ring-[#1A5B61]" %>
+    focus:ring-inset focus:ring-[#1A5B61]", placeholder: "email@ejemplo.com o CLABE o teléfono" %>
   </div>
 
   <div class="inline">

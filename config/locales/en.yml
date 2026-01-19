@@ -30,4 +30,32 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  operations:
+    title: "Operations"
+    deposit: "Deposit: %{concept}"
+    withdrawal: "Withdrawal: %{concept}"
+    transfer: "Transfer: %{concept}"
+    destination: "Destination"
+    from: "From"
+    to: "To"
+    account: "Account"
+    card: "Card"
+    main_account: "Main account"
+    total_operations: 
+      zero: "%{count} total operations"
+      one: "%{count} total operation"
+      other: "%{count} total operations"
+    no_operations: "You have no registered operations"
+    no_operations_message: "Start making deposits, transfers or withdrawals"
+    time_ago:
+      less_than_minute: "less than a minute ago"
+      x_minutes: "%{count} minutes ago"
+      about_x_hours: "about %{count} hours ago"
+      x_hours: "%{count} hours ago"
+      x_days: "%{count} days ago"
+      unknown: "unknown time ago"
+    target_info:
+      account: "Account: %{name} (%{email})"
+      card: "Card: %{number}"
+      unknown: "Unknown"
   hello: "Hello world"

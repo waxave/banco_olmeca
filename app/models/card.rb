@@ -72,57 +72,6 @@ class Card < ApplicationRecord
   end
 
   def create_default_operations
-    Operation.create(
-      account_id:,
-      operationable_id: id,
-      operationable_type: 'Card',
-      kind: :deposit,
-      amount: 4000,
-      concept: 'new deposit'
-    )
-
-    Operation.create(
-      account_id:,
-      operationable_id: id,
-      operationable_type: 'Card',
-      kind: :deposit,
-      amount: 4000,
-      concept: 'new deposit'
-    )
-    Operation.create(
-      account_id:,
-      operationable_id: id,
-      operationable_type: 'Card',
-      kind: :transfer,
-      amount: 4000,
-      concept: 'new transfer'
-    )
-
-    Operation.create(
-      account_id:,
-      operationable_id: id,
-      operationable_type: 'Card',
-      kind: :transfer,
-      amount: 4000,
-      concept: 'new transfer'
-    )
-
-    Operation.create(
-      account_id:,
-      operationable_id: id,
-      operationable_type: 'Card',
-      kind: :withdrawal,
-      amount: 4000,
-      concept: 'new withdrawal'
-    )
-
-    Operation.create(
-      account_id:,
-      operationable_id: id,
-      operationable_type: 'Card',
-      kind: :withdrawal,
-      amount: 4000,
-      concept: 'new withdrawal'
-    )
+    CardOperationsService.call(self)
   end
 end

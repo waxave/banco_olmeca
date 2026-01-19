@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
   include BCrypt
@@ -22,5 +22,17 @@ class AccountTest < ActiveSupport::TestCase
 
     assert_equal(@account.valid?, false)
     assert_includes(@account.errors[:phone], 'is the wrong length (should be 10 characters)')
+  end
+
+  test 'enqueues card creation job after account creation' do
+    assert_enqueued_with(job: CardCreationJob) do
+      Account.create!(
+        name: 'Test User',
+        email: 'test@example.com',
+        phone: '1234567890',
+        password: 'password123',
+        clabe: 'TEST'
+      )
+    end
   end
 end

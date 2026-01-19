@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+# Configuration for RuboCop with project-specific rules
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2.1
+  Exclude:
+    - 'db/schema.rb'  # Auto-generated file
+    - 'bin/*'         # Binary files
+    - 'node_modules/**' # External dependencies
+
+# Metrics configuration - our project follows these limits
+Metrics:
+  Enabled: true
+  BlockLength:
+    Max: 25
+    Exclude:
+      - 'db/schema.rb'  # Schema has to be in one block
+  MethodLength:
+    Max: 10
+  AbcSize:
+    Max: 17
+  ClassLength:
+    Max: 100
+  ModuleLength:
+    Max: 100
+
+# Style rules that are disabled for this project
+Style:
+  FrozenStringLiteralComment:
+    Enabled: false  # Not enforced in this legacy codebase
+  Documentation:
+    Enabled: false  # Classes are self-documenting enough
+  ClassAndModuleChildren:
+    Enabled: false  # We prefer compact style for namespaces
+  
+# Rails specific rules (requires rubocop-rails gem)
+# Rails:
+#   Enabled: true
+
+# Lint rules we want to enforce
+Lint:
+  Enabled: true

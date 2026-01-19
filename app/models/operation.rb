@@ -18,8 +18,8 @@ class Operation < ApplicationRecord
   validates :operationable, presence: false
   validates :kind, inclusion: { in: kinds.keys }
 
-  after_validation :create_operation
-  before_validation :set_operation_account
+  # Add idempotency key field
+  validates :idempotency_key, uniqueness: { allow_nil: true }
 
   scope :for_me, lambda { |account_id|
     account = Account.find_by_id(account_id)
@@ -60,42 +60,22 @@ class Operation < ApplicationRecord
       )
       new(withdraw_params)
     end
+
+    # Service methods for operations
+    def perform_deposit(account, amount, concept, operationable = nil, idempotency_key: nil)
+      DepositService.call(account, amount, concept, operationable, idempotency_key:)
+    end
+
+    def perform_withdrawal(account, amount, concept, operationable = nil, idempotency_key: nil)
+      WithdrawalService.call(account, amount, concept, operationable, idempotency_key:)
+    end
+
+    def perform_transfer(account, amount, concept, target_account, idempotency_key: nil)
+      TransferService.call(account, amount, concept, target_account, idempotency_key:)
+    end
   end
 
   private
-
-  def create_operation
-    unless operationable.present? && account.present?
-      delete_error(:operationable)
-      return add_error(:account_not_found)
-    end
-
-    send("create_#{kind}")
-  end
-
-  def create_deposit
-    operationable.reload
-
-    operationable.update_attribute(:balance, operationable.balance + amount)
-  end
-
-  def create_withdrawal
-    operationable.reload
-
-    return add_error(:withdrawal_error) if operationable.balance < amount
-
-    operationable.update_attribute(:balance, operationable.balance - amount)
-  end
-
-  def create_transfer
-    account.reload
-    operationable.reload
-
-    return add_error(:transfer_error) if account.balance < amount
-
-    account.update_attribute(:balance, account.balance - amount)
-    operationable.update_attribute(:balance, operationable.balance + amount)
-  end
 
   def add_error(error)
     errors.add(error, ERRORS[error])
@@ -117,6 +97,11 @@ class Operation < ApplicationRecord
   end
 
   def broadcast_operation
+    broadcast_to_account
+    broadcast_to_card if operationable.is_a?(Card)
+  end
+
+  def broadcast_to_account
     broadcast_prepend_to "operations_for_account_#{account.id}",
                          target: 'operations',
                          partial: 'operations/operation',
@@ -126,13 +111,12 @@ class Operation < ApplicationRecord
                          target: 'balance',
                          partial: 'application/balance',
                          locals: { balance: account.balance }
+  end
 
-    if operationable.is_a?(Card) # rubocop:disable Style/GuardClause
-      broadcast_replace_to "card_#{operationable.id}",
-                           target: "card_#{operationable.id}",
-                           partial: 'application/card',
-                           locals: { card: operationable }
-
-    end
+  def broadcast_to_card
+    broadcast_replace_to "card_#{operationable.id}",
+                         target: "card_#{operationable.id}",
+                         partial: 'application/card',
+                         locals: { card: operationable }
   end
 end

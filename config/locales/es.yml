@@ -1,0 +1,38 @@
+es:
+  operations:
+    title: "Operaciones"
+    deposit: "Depósito: %{concept}"
+    withdrawal: "Retiro: %{concept}"
+    transfer: "Transferencia: %{concept}"
+    destination: "Destino"
+    from: "De"
+    to: "A"
+    account: "Cuenta"
+    card: "Tarjeta"
+    main_account: "Cuenta principal"
+    total_operations: 
+      zero: "%{count} operaciones totales"
+      one: "%{count} operación total"
+      other: "%{count} operaciones totales"
+    no_operations: "No tienes operaciones registradas"
+    no_operations_message: "Comienza realizando depósitos, transferencias o retiros"
+    time_ago:
+      less_than_minute: "hace menos de un minuto"
+      x_minutes: 
+        one: "hace %{count} minuto"
+        other: "hace %{count} minutos"
+      about_x_hours: 
+        one: "hace aproximadamente %{count} hora"
+        other: "hace aproximadamente %{count} horas"
+      x_hours: 
+        one: "hace %{count} hora"
+        other: "hace %{count} horas"
+      x_days: 
+        one: "hace %{count} día"
+        other: "hace %{count} días"
+      unknown: "hace tiempo desconocido"
+    target_info:
+      account: "Cuenta: %{name} (%{email})"
+      card: "Tarjeta: %{number}"
+      unknown: "Desconocido"
+  hello: "Hola mundo"
