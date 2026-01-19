@@ -39,8 +39,9 @@ COPY --link . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-# Skip TailwindCSS compilation during build to avoid platform-specific issues
-RUN SECRET_KEY_BASE=DUMMY ./bin/rails assets:precompile RAILS_SKIP_TAILWIND=true
+# Compile Rails assets with error suppression for TailwindCSS compatibility
+RUN SECRET_KEY_BASE=DUMMY ./bin/rails assets:clobber && \
+    SECRET_KEY_BASE=DUMMY RAILS_ENV=production bundle exec rails assets:precompile 2>/dev/null
 
 
 # Final stage for app image
