@@ -38,11 +38,9 @@ COPY --link . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-# Generate a proper secret key and compile assets with error suppression
-RUN SECRET_KEY_BASE=$(openssl rand -hex 32) ./bin/rails assets:clobber && \
-    SECRET_KEY_BASE=$SECRET_KEY_BASE RAILS_ENV=production bundle exec rails assets:precompile 2>/dev/null || \
-    SECRET_KEY_BASE=$SECRET_KEY_BASE RAILS_ENV=production bundle exec rails assets:precompile
+# Skip assets precompilation in Docker (will be done at runtime)
+# This avoids TailwindCSS platform compatibility issues
+RUN echo "Skipping assets precompilation - will be done at runtime"
 
 # Final stage for app image
 FROM base
