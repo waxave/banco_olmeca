@@ -33,6 +33,9 @@ Rails.application.configure do
   # Enable live asset compilation for TailwindCSS
   config.assets.digest = true
 
+  # Handle database connection properly for Fly.io
+  config.database_configuration[Rails.env]['url'] = ENV['DATABASE_URL'] if ENV['DATABASE_URL']
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
