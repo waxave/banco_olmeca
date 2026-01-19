@@ -21,7 +21,7 @@ class CardTest < ActiveSupport::TestCase
     @card = cards(:pin_invalid)
 
     assert_equal(@card.valid?, false)
-    assert_includes(@card.errors[:pin], 'is the wrong length (should be 4 characters)')
+    assert_includes(@card.errors[:pin], 'debe tener 4 caracteres')
   end
 
   test 'has only one default card' do

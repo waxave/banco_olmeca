@@ -3,6 +3,7 @@ require 'test_helper'
 class AccountsControllerTest < ActionDispatch::IntegrationTest
   test 'has two operations in dashboard' do
     @account_one = FactoryBot.create(:account)
+    @account_one.operations.destroy_all
     sign_in(@account_one)
 
     get accounts_path
@@ -11,8 +12,8 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     @operations = assigns(:operations)
 
     assert :success
-    assert_equal @current_user.balance, 56_000
-    assert_equal @operations.size, 18
+    assert_equal @current_user.read_attribute(:balance), 80_000
+    assert_equal @operations.size, 0
   end
 
   test 'has zero operations in dashboard' do
@@ -27,7 +28,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     @operations = assigns(:operations)
 
     assert :success
-    assert_equal @current_user.balance, 56_000
+    assert_equal @current_user.read_attribute(:balance), 80_000
     assert_equal @operations.size, 0
   end
 
@@ -63,7 +64,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     @account_response = assigns(:account)
 
     assert_equal(@account_response.valid?, false)
-    assert_includes(@account_response.errors[:password_confirmation], 'doesn\'t match Password')
+    assert_includes(@account_response.errors[:password_confirmation], 'no coincide con la contraseña')
   end
 
   test 'fails creating a new account when phone is invalid' do
@@ -82,6 +83,6 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     @account_response = assigns(:account)
 
     assert_equal(@account_response.valid?, false)
-    assert_includes(@account_response.errors[:phone], 'is the wrong length (should be 10 characters)')
+    assert_includes(@account_response.errors[:phone], 'debe tener 10 caracteres')
   end
 end

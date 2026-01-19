@@ -10,6 +10,9 @@ class ActiveSupport::TestCase
 
   fixtures :all
 
+  # Add ActiveJob test helper
+  include ActiveJob::TestHelper
+
   # simulates a session started
   def sign_in(account)
     open_session do |session|

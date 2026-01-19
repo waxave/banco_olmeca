@@ -6,9 +6,9 @@ class DepositService < BaseOperationService
 
   def process_operation
     operationable.reload
-    @original_balance = operationable.balance
+    @original_balance = operationable.read_attribute(:balance)
 
-    operationable.update!(balance: operationable.balance + amount)
+    operationable.update!(balance: operationable.read_attribute(:balance) + amount)
   end
 
   def compensate_operation

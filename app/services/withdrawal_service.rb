@@ -14,9 +14,9 @@ class WithdrawalService < BaseOperationService
 
   def process_operation
     operationable.reload
-    @original_balance = operationable.balance
+    @original_balance = operationable.read_attribute(:balance)
 
-    operationable.update!(balance: operationable.balance - amount)
+    operationable.update!(balance: operationable.read_attribute(:balance) - amount)
   end
 
   def compensate_operation
@@ -30,14 +30,16 @@ class WithdrawalService < BaseOperationService
   end
 
   def sufficient_funds?
-    operationable.balance >= amount
+    operationable.read_attribute(:balance) >= amount
+  rescue StandardError
+    false
   end
 
   def handle_error(error)
-    if !sufficient_funds?
-      errors.add(:base, ERRORS[:insufficient_funds])
-    else
+    if sufficient_funds?
       super
+    else
+      errors.add(:base, ERRORS[:insufficient_funds])
     end
   end
 end

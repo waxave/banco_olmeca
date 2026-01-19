@@ -1,7 +1,7 @@
 <div class="grid grid-cols-4 gap-4">
   <div>
     <!-- Balance -->
-    <%= render partial: "application/balance", locals: { balance: @current_user.balance } %>
+    <%= render partial: "application/balance", locals: { balance: @current_user.read_attribute(:balance) } %>
 
     <!-- Cards -->
     <%= render partial: "application/card", collection: @current_user.cards, as: :card %>

@@ -22,8 +22,8 @@ class TransferService < BaseOperationService
   end
 
     def valid_transfer?
-        return false unless target_account.is_a?(Account)
         return false if account == target_account
+        return false unless target_account.is_a?(Account) || target_account.is_a?(Card)
 
         sufficient_funds?
     end
@@ -40,13 +40,18 @@ class TransferService < BaseOperationService
   end
 
   def save_original_balances
-    @original_source_balance = account.balance
-    @original_target_balance = target_account.balance
+    @original_source_balance = account.read_attribute(:balance)
+    @original_target_balance = target_account.read_attribute(:balance)
   end
 
   def update_balances
-    account.update!(balance: account.balance - amount)
-    target_account.update!(balance: target_account.balance + amount)
+    account.update!(balance: account.read_attribute(:balance) - amount)
+
+    if target_account.is_a?(Card)
+      target_account.update!(balance: target_account.read_attribute(:balance) + amount)
+    else
+      target_account.update!(balance: target_account.read_attribute(:balance) + amount)
+    end
   end
 
   def compensate_operation
@@ -61,7 +66,9 @@ class TransferService < BaseOperationService
   end
 
   def sufficient_funds?
-    account.balance >= amount
+    account.read_attribute(:balance) >= amount
+  rescue StandardError
+    false
   end
 
   def handle_error(error)

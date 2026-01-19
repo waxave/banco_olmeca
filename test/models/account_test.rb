@@ -2,6 +2,11 @@ require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
   include BCrypt
+  include ActiveJob::TestHelper
+
+  teardown do
+    clear_enqueued_jobs
+  end
 
   test 'create a new account without errors' do
     @account = accounts(:one)
@@ -14,18 +19,18 @@ class AccountTest < ActiveSupport::TestCase
     @account_two = accounts(:email_repeated)
 
     assert_equal(@account_two.valid?, false)
-    assert_includes(@account_two.errors[:email], 'has already been taken')
+    assert_includes(@account_two.errors[:email], 'ya está en uso')
   end
 
   test 'has errors when phone is not correct' do
     @account = accounts(:phone_incorrect)
 
     assert_equal(@account.valid?, false)
-    assert_includes(@account.errors[:phone], 'is the wrong length (should be 10 characters)')
+    assert_includes(@account.errors[:phone], 'debe tener 10 caracteres')
   end
 
   test 'enqueues card creation job after account creation' do
-    assert_enqueued_with(job: CardCreationJob) do
+    assert_enqueued_jobs(1, only: CardCreationJob) do
       Account.create!(
         name: 'Test User',
         email: 'test@example.com',

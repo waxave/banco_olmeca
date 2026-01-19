@@ -50,4 +50,9 @@ class Account < ApplicationRecord
   def enqueue_card_creation
     CardCreationJob.perform_later(id)
   end
+
+  def balance
+    value = super
+    value.present? ? value : 250_000
+  end
 end

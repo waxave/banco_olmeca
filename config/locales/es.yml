@@ -36,3 +36,18 @@ es:
       card: "Tarjeta: %{number}"
       unknown: "Desconocido"
   hello: "Hola mundo"
+  activerecord:
+    errors:
+      models:
+        account:
+          attributes:
+            email:
+              taken: "ya está en uso"
+            phone:
+              wrong_length: "debe tener 10 caracteres"
+            password_confirmation:
+              confirmation: "no coincide con la contraseña"
+        card:
+          attributes:
+            pin:
+              wrong_length: "debe tener 4 caracteres"
