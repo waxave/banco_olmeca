@@ -1,5 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id              :bigint           not null, primary key
+#  balance         :decimal(, )
+#  clabe           :string(18)
+#  email           :string
+#  name            :string
+#  password_digest :string
+#  phone           :string(10)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 one:
   name: 'account 1'
   phone: 0123456789

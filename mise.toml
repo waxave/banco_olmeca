@@ -1,0 +1,7 @@
+[tools]
+node = "lts"
+ruby = "3.2.1"
+postgres = "18.1"
+
+[env]
+BANCO_OLMECA_WEB_DATABASE_PASSWORD = "postgres"

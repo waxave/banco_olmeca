@@ -1,58 +1,55 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id              :bigint           not null, primary key
+#  balance         :decimal(, )
+#  clabe           :string(18)
+#  email           :string
+#  name            :string
+#  password_digest :string
+#  phone           :string(10)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class Account < ApplicationRecord
-  has_secure_password
-  has_many :card, -> { order(:id) }
-  has_many :contact
-  has_many :operation
-
-  alias cards card
-  alias contacts contact
-  alias operations operation
-
-  attribute :balance, :decimal, default: 250_000
-  validates :name, presence: true
-  validates :phone, presence: true, length: { is: 10 }, uniqueness: true
-  validates :password, presence: true
-  validates :clabe, uniqueness: true
-  validates :email, presence: true, uniqueness: true
-
-  before_create :clabe_assignation
-  after_create :enqueue_card_creation
-
-  class << self
-    def for_operation(query)
-      where(
-        'id = ? OR email = ? OR clabe = ? OR phone = ?',
-        query.to_i,
-        query.to_s,
-        query.to_s,
-        query.to_s
-      ).first
+  def self.for_operation(query)
+    case query
+    when Integer
+      find_by(id: query)
+    when String
+      if query.match?(/\A\d+\z/)
+        find_by(id: query.to_i) || find_by(email: query)
+      else
+        find_by(email: query)
+      end
     end
   end
+  # Associations
+  has_many :cards, -> { order(:id) }
+  has_many :operations
+  has_many :contacts
 
+  # Authentication
+  has_secure_password
+
+  # Validations
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :phone, length: { is: 10 }
+
+  # Callbacks (for card creation)
+  after_create :enqueue_card_creation_job
+
+  # Helper methods
   def as_json(options = {})
     options[:except] ||= [:password_digest]
-    super(options)
+    super
   end
 
   private
 
-  def clabe_assignation
-    self.clabe = clabe_generator
-  end
-
-  def clabe_generator(length = 4)
-    a_ascii_char_code = 'A'.ord
-    z_ascii_char_code = 'Z'.ord
-    (0...length).map { rand(a_ascii_char_code..z_ascii_char_code).chr }.join
-  end
-
-  def enqueue_card_creation
+  def enqueue_card_creation_job
     CardCreationJob.perform_later(id)
-  end
-
-  def balance
-    value = super
-    value.present? ? value : 250_000
   end
 end

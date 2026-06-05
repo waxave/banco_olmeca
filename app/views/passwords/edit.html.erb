@@ -1,0 +1,48 @@
+<% provide(:title, t('password.title')) %>
+
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <%= form_with model: @account, url: password_path, method: :patch, class: "space-y-6" do |form| %>
+        <div class="mt-1">
+          <%= form.label :password, t('password.new'), class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.password_field :password, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-[#43A4AB] focus:ring-[#43A4AB] sm:text-sm", minlength: 6 %>
+          </div>
+        </div>
+
+        <div class="mt-1">
+          <%= form.label :password_confirmation, t('password.confirmation'), class: "block text-sm font-medium text-gray-700" %>
+          <div class="mt-1">
+            <%= form.password_field :password_confirmation, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-[#43A4AB] focus:ring-[#43A4AB] sm:text-sm", minlength: 6 %>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end mt-2">
+          <%= form.submit t('password.update'), class: "flex w-full justify-center rounded-md border border-transparent bg-[#43A4AB] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#1A5B61] focus:outline-none focus:ring-2 focus:ring-[#43A4AB] focus:ring-offset-2 cursor-pointer" %>
+        </div>
+      <% end %>
+
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="bg-white px-2 text-gray-500">Opciones</span>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-3">
+          <%= link_to edit_profile_path, class: "flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <%= t('profile.edit') %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

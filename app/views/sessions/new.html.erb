@@ -3,7 +3,7 @@
   <h2 class="mt-6 text-center text-4xl font-bold tracking-tight text-gray-900 font-['Raleway']">Banco Olmeca</h2>
 </div>
 
-<%= form_with(model: @account, url: log_in_path, class: "contents") do |form| %>
+<%= form_with(model: @account, url: sessions_path, class: "contents") do |form| %>
   <% if notice.present? %>
     <div class="mt-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
       <%= notice %>
@@ -27,12 +27,12 @@
   </div>
 
   <div class="inline">
-    <%= form.submit "Login", class: "font-['Raleway'] group relative flex w-full justify-center
+    <%= form.submit t('common.login'), class: "font-['Raleway'] group relative flex w-full justify-center
     rounded-md bg-[#1A5B61] py-5 px-5 text-md font-semibold text-white
     hover:bg-[#43A4AB] focus-visible:outline focus-visible:outline-2
     focus-visible:outline-offset-2 focus-visible:outline-[#43A4AB]" %>
   </div>
   <div class="my-5">
-    <%= link_to "Register", new_account_path, class: "flex w-full justify-center rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium bg-[#7bdce4]" %>
+    <%= link_to t('common.register'), new_account_path, class: "flex w-full justify-center rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium bg-[#7bdce4]" %>
   </div>
 <% end %>

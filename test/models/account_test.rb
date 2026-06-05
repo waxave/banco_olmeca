@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id              :bigint           not null, primary key
+#  balance         :decimal(, )
+#  clabe           :string(18)
+#  email           :string
+#  name            :string
+#  password_digest :string
+#  phone           :string(10)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
@@ -9,35 +23,35 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test 'create a new account without errors' do
-    @account = accounts(:one)
-
-    assert_empty(@account.errors)
+    account = FactoryBot.build(:account)
+    assert account.valid?
+    assert_empty(account.errors)
   end
 
   test 'has errors when email has been taken' do
-    @account_one = accounts(:one)
-    @account_two = accounts(:email_repeated)
+    email = 'duplicate@example.com'
+    FactoryBot.create(:account, email: email)
+    account_two = FactoryBot.build(:account, email: email)
 
-    assert_equal(@account_two.valid?, false)
-    assert_includes(@account_two.errors[:email], 'ya está en uso')
+    assert_not account_two.valid?
+    assert_includes(account_two.errors[:email], 'ya está en uso')
   end
 
   test 'has errors when phone is not correct' do
-    @account = accounts(:phone_incorrect)
+    account = FactoryBot.build(:account, phone: '1234')
 
-    assert_equal(@account.valid?, false)
-    assert_includes(@account.errors[:phone], 'debe tener 10 caracteres')
+    assert_not account.valid?
+    assert_includes(account.errors[:phone], 'debe tener 10 caracteres')
   end
 
   test 'enqueues card creation job after account creation' do
     assert_enqueued_jobs(1, only: CardCreationJob) do
-      Account.create!(
-        name: 'Test User',
-        email: 'test@example.com',
-        phone: '1234567890',
-        password: 'password123',
-        clabe: 'TEST'
-      )
+      FactoryBot.create(:account,
+                        name: 'Test User',
+                        email: 'test@example.com',
+                        phone: '1234567890',
+                        password: 'password123',
+                        clabe: 'TEST')
     end
   end
 end

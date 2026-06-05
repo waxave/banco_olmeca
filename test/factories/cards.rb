@@ -1,5 +1,31 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: cards
+#
+#  id               :bigint           not null, primary key
+#  balance          :decimal(, )
+#  cvv              :integer
+#  default          :boolean
+#  expiration_month :integer
+#  expiration_year  :integer
+#  kind             :integer
+#  number           :string(16)
+#  pin              :integer
+#  status           :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  account_id       :bigint           not null
+#
+# Indexes
+#
+#  index_cards_on_account_id  (account_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id)
+#
 FactoryBot.define do
   factory :card do
     association :account

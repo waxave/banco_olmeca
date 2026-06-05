@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: cards
+#
+#  id               :bigint           not null, primary key
+#  balance          :decimal(, )
+#  cvv              :integer
+#  default          :boolean
+#  expiration_month :integer
+#  expiration_year  :integer
+#  kind             :integer
+#  number           :string(16)
+#  pin              :integer
+#  status           :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  account_id       :bigint           not null
+#
+# Indexes
+#
+#  index_cards_on_account_id  (account_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id)
+#
 class Card < ApplicationRecord
   ERRORS = {
     card_not_found: 'Card not found'
@@ -16,22 +42,11 @@ class Card < ApplicationRecord
   before_create :cvv_assignation
   before_create :expiration_month_assignation
   before_create :expiration_year_assignation
-  before_create :assing_as_default
-  after_create :create_default_operations
-
-  class << self
-    def for_operation(_query)
-      Card.find_by(number:)
-    end
-
-    def auth(number, pin)
-      Card.find_by(number:, pin:, status: :enabled)
-    end
-  end
+  before_create :assign_as_default
 
   def as_json(options = {})
     options[:except] ||= %i[pin cvv]
-    super(options)
+    super
   end
 
   private
@@ -54,10 +69,10 @@ class Card < ApplicationRecord
     self.expiration_year = year
   end
 
-  def assing_as_default
+  def assign_as_default
     first_card = Card.where(account_id:, default: true)
 
-    self.default = first_card.present? ? false : true
+    self.default = first_card.blank?
   end
 
   def number_generator
@@ -69,9 +84,5 @@ class Card < ApplicationRecord
     nine_ascii_char_code = '9'.ord
 
     (0...size).map { rand(zero_ascii_char_code..nine_ascii_char_code).chr }.join
-  end
-
-  def create_default_operations
-    CardOperationsService.call(self)
   end
 end

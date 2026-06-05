@@ -1,0 +1,23 @@
+<%= link_to withdrawal_path(operation), class: "block" do %>
+  <div id="<%= dom_id(operation) %>" class="font-['Roboto'] bg-[#fd938b] border-[#fd938b] grid grid-cols-10 items-center p-6 gap-8 rounded-lg border-2 mb-5">
+    <div class="col-span-1">
+      <%= image_tag 'cash-banknote-minus.svg', class: 'w-60 h-60' %>
+    </div>
+    <div class="col-span-6">
+      <p class="text-left text-lg text-[#774842] font-bold">
+        <%= t('operations.withdrawal', concept: operation.concept) %>
+      </p>
+      <p class="text-sm text-[#774842] mt-1">
+        <%= operation_target_info(operation) %>
+      </p>
+    </div>
+    <div class="col-span-3 text-right">
+        <p class="text-2xl font-bold text-[#774842]">
+          -<%= number_to_currency(operation.amount, unit: '$', precision: 2, delimiter: '.', separator: ',') %>
+        </p>
+        <p class="text-sm text-gray-600 mt-1">
+          <%= format_operation_date(operation.created_at) %>
+        </p>
+    </div>
+  </div>
+<% end %>

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ApiController handles API requests and error responses.
 class ApiController < ActionController::Base
   skip_before_action :verify_authenticity_token
   rescue_from ::ArgumentError, with: :argument_error

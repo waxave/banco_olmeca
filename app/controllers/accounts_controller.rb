@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
+# Controller for managing account-related actions.
 class AccountsController < ApplicationController
   layout 'sessions', only: %i[new create]
   skip_before_action :logged_in?, only: %i[new create]
 
   def index
-    @operations = Operation.for_me(current_user.id)
+    @operations = OperationsForAccountQuery.call(account_id: current_user.id)
   end
 
   def new
@@ -12,7 +15,6 @@ class AccountsController < ApplicationController
 
   def create
     @account = Account.new(account_params)
-
     if @account.save
       redirect_to new_account_path, notice: 'Account created.'
     else

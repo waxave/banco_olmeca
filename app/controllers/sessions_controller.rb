@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Controller for managing user sessions (login/logout)
 class SessionsController < ApplicationController
   layout 'sessions', only: %i[new]
   skip_before_action :logged_in?, only: %i[new create]
@@ -7,18 +10,19 @@ class SessionsController < ApplicationController
   end
 
   def create
-    validation = AccountValidator.call(account_params)
+    # Legacy AccountValidator removed; use Account model authentication
+    account = Account.find_by(email: account_params[:email])
 
-    if validation&.success?
-      session[:account_id] = validation.payload.id
+    if account&.authenticate(account_params[:password])
+      session[:account_id] = account.id
       redirect_to root_path
     else
-      redirect_to log_in_path, notice: validation.error
+      redirect_to new_session_path, notice: 'Invalid email or password'
     end
   end
 
   def destroy
-    session.delete(:account_id)
+    session.clear
     @current_user = nil
     redirect_to root_path
   end

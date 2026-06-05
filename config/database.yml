@@ -24,6 +24,8 @@ default: &default
 development:
   <<: *default
   host: localhost
+  username: postgres
+  password: <%= ENV["BANCO_OLMECA_WEB_DATABASE_PASSWORD"] %>
   database: banco_olmeca_web_development
 
   # The specified database role being used to connect to postgres.
@@ -59,6 +61,8 @@ development:
 test:
   <<: *default
   host: localhost
+  username: postgres
+  password: <%= ENV["BANCO_OLMECA_WEB_DATABASE_PASSWORD"] %>
   database: banco_olmeca_web_test
 
 # As with config/credentials.yml, you never want to store sensitive information,

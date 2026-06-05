@@ -30,8 +30,32 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  common:
+    back: "Back"
+  time:
+    formats:
+      long: "%B %d, %Y at %H:%M"
+  deposit:
+    concept:
+      placeholder: "Deposit concept: E.g. Salary"
+    amount:
+      placeholder: "Deposit amount: E.g. 100.00"
+  transfer:
+    concept:
+      placeholder: "Transfer concept: E.g. Rent payment"
+    amount:
+      placeholder: "Transfer amount: E.g. 100.00"
   operations:
     title: "Operations"
+    detail_title: "Operation detail"
+    details: "Operation details"
+    id: "Operation ID"
+    date: "Date"
+    type: "Type"
+    kind:
+      deposit: "Deposit"
+      withdrawal: "Withdrawal"
+      transfer: "Transfer"
     deposit: "Deposit: %{concept}"
     withdrawal: "Withdrawal: %{concept}"
     transfer: "Transfer: %{concept}"
@@ -41,7 +65,7 @@ en:
     account: "Account"
     card: "Card"
     main_account: "Main account"
-    total_operations: 
+    total_operations:
       zero: "%{count} total operations"
       one: "%{count} total operation"
       other: "%{count} total operations"
@@ -58,4 +82,3 @@ en:
       account: "Account: %{name} (%{email})"
       card: "Card: %{number}"
       unknown: "Unknown"
-  hello: "Hello world"

@@ -1,0 +1,24 @@
+<%= link_to transfer_path(operation), class: "block" do %>
+  <div class="font-['Roboto'] bg-[#7bdce4] border-[#7bdce4] grid grid-cols-10 items-center p-6 gap-8 rounded-lg border-2 mb-5">
+    <div class="col-span-1">
+      <%= image_tag 'cash-banknote-move.svg', class: 'w-60 h-60' %>
+    </div>
+    <div class="col-span-6">
+      <p class="text-left text-lg text-[#1A5B61] font-bold">
+        <%= t('operations.transfer', concept: operation.concept) %>
+      </p>
+      <div class="text-sm text-[#1A5B61] mt-1">
+        <p><%= t('operations.from') %>: <%= operation.account.name %> (<%= operation.account.email %>)</p>
+        <p><%= operation_target_info(operation) %></p>
+      </div>
+    </div>
+    <div class="col-span-3 text-right">
+        <p class="text-2xl font-bold text-[#1A5B61]">
+          <%= number_to_currency(operation.amount, unit: '$', precision: 2, delimiter: '.', separator: ',') %>
+        </p>
+        <p class="text-sm text-gray-600 mt-1">
+          <%= format_operation_date(operation.created_at) %>
+        </p>
+    </div>
+  </div>
+<% end %>

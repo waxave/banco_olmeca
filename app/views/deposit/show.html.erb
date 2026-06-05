@@ -1,0 +1,31 @@
+<% content_for :title, t('operations.deposit', concept: @operation.concept) %>
+<% content_for :active_menu, new_deposit_path %>
+
+<%= turbo_frame_tag "show_deposit" do %>
+
+<div class="max-w-4xl mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <%= render partial: 'deposit', locals: { operation: @operation } %>
+
+    <div class="mt-6 border-t pt-4">
+      <h2 class="text-lg font-semibold text-gray-700 mb-5 font-['Raleway']">
+        <%= t('operations.details') %>
+      </h2>
+      <dl class="grid grid-rows-1 gap-4">
+        <div>
+          <dt class="text-lg font-medium text-gray-500"><%= t('operations.id') %></dt>
+          <dd class="text-sm text-gray-900">#<%= @operation.id %></dd>
+        </div>
+        <div>
+          <dt class="text-lg font-medium text-gray-500"><%= t('operations.date') %></dt>
+          <dd class="text-sm text-gray-900"><%= l(@operation.created_at, format: :long) %></dd>
+        </div>
+        <div>
+          <dt class="text-lg font-medium text-gray-500"><%= t('operations.type') %></dt>
+          <dd class="text-sm text-gray-900 capitalize"><%= t("operations.kind.#{@operation.kind}") %></dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,6 @@
+<% content_for :title, t('operations.new_withdrawal') %>
+<% content_for :active_menu, new_withdrawal_path %>
+
+<%= turbo_frame_tag "new_withdrawal" do %>
+  <%= render 'form', operation: @operation, cards: @cards %>
+<% end %>

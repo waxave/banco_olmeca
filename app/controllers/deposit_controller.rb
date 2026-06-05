@@ -1,4 +1,14 @@
+# frozen_string_literal: true
+
+# Controller for handling deposit operations
 class DepositController < ApplicationController
+  def show
+    @operation = Operation.account_operation(
+      operation_id: params[:id],
+      account_id: current_user.id
+    )
+  end
+
   def new
     @operation = Operation.new
     @cards = current_user.cards
@@ -7,24 +17,12 @@ class DepositController < ApplicationController
   def create
     @cards = current_user.cards
 
-    # Find the target card if specified
-    target_card = if operation_params[:operationable_id].present?
-                    Card.find_by(id: operation_params[:operationable_id])
-                  else
-                    current_user
-                  end
+    result = DepositCommand.call(account: current_user, params: operation_params)
 
-    result = DepositService.call(
-      current_user,
-      operation_params[:amount].to_d,
-      operation_params[:concept],
-      target_card
-    )
-
-    if result == ApplicationService::SUCCESS
-      redirect_to new_deposit_path, notice: 'Depósito realizado exitosamente.'
+    if result.success?
+      redirect_to new_deposit_path, notice: result.message
     else
-      @operation = Operation.new(operation_params)
+      @operation = result.operation
       render :new, status: :unprocessable_entity
     end
   end

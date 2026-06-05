@@ -1,3 +1,6 @@
+<% provide(:title, t('operations.title')) %>
+<% content_for :active_menu, root_path %>
+
 <div class="grid grid-cols-4 gap-4">
   <div>
     <!-- Balance -->
@@ -13,20 +16,13 @@
         <h1 class="text-xl font-['Raleway'] text-gray-900 font-bold">
           <%= t('operations.title') %>
         </h1>
-        <div class="text-sm text-gray-600">
+        <div class="text-sm text-gray-600 font-['Raleway']">
           <%= t('operations.total_operations', count: @operations.count) %>
         </div>
       </div>
 
       <!-- Lista de operaciones -->
-      <% if @operations.any? %>
-        <%= render partial: "operations/operations", locals: { operations: @operations } %>
-      <% else %>
-        <div class="text-center py-8 text-gray-600">
-          <p class="text-lg"><%= t('operations.no_operations') %></p>
-          <p class="text-sm mt-2"><%= t('operations.no_operations_message') %></p>
-        </div>
-      <% end %>
+      <%= render "operations/operations", operations: @operations %>
     </div>
   </div>
 </div>

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#MISE description "Initialize PostgreSQL and create user"
+#USAGE arg "<username>" help="Database username" default="myapp_user"
+#USAGE arg "<password>" help="Database password" default="securepassword"
+
+set -e
+
+USERNAME="${usage_username:-myapp_user}"
+PASSWORD="${usage_password:-securepassword}"
+
+PG_VERSION=$(mise which postgres | awk -F/ '{print $(NF-2)}')
+PGDATA="$HOME/.local/share/mise/installs/postgres/$PG_VERSION/data"
+
+if [ ! -f "$PGDATA/PG_VERSION" ]; then
+    echo "Inicializando clúster PostgreSQL versión $PG_VERSION..."
+    initdb --auth-local=peer --auth-host=scram-sha-256 -U "$USER"
+fi
+
+sed -i "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" "$PGDATA/postgresql.conf"
+sed -i "s/#password_encryption = scram-sha-256/password_encryption = scram-sha-256/" "$PGDATA/postgresql.conf"
+
+if ! grep -q "host.*all.*all.*127.0.0.1.*scram-sha-256" "$PGDATA/pg_hba.conf"; then
+    echo "host all all 127.0.0.1/32 scram-sha-256" >> "$PGDATA/pg_hba.conf"
+fi
+
+pg_ctl -D "$PGDATA" -l "$PGDATA/logfile" start
+
+sleep 2
+
+psql -U "$USER" -d postgres -v ON_ERROR_STOP=1 -c "DO \$\$ BEGIN
+   IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = '$USERNAME') THEN
+      EXECUTE format('CREATE ROLE %I WITH LOGIN PASSWORD %L CREATEDB', '$USERNAME', '$PASSWORD');
+   ELSE
+      EXECUTE format('ALTER ROLE %I WITH LOGIN PASSWORD %L', '$USERNAME', '$PASSWORD');
+   END IF;
+END
+\$\$;"
+
+echo "PostgreSQL iniciado con usuario de Rails '$USERNAME'."
+echo "Acepta conexiones locales en localhost:5432"

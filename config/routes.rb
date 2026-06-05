@@ -3,13 +3,14 @@ Rails.application.routes.draw do
   root 'accounts#index'
 
   resources :accounts, only: %i[index new create]
-  resources :transfer, only: %i[new create]
-  resources :deposit, only: %i[new create]
-  resources :withdraw, only: %i[new create]
+  resources :transfer, only: %i[new create show]
+  resources :deposit, only: %i[new create show]
+  resources :withdrawal, only: %i[new create show]
+  resources :operations, only: %i[show]
 
-  get 'log-in', to: 'sessions#new'
-  post 'log-in', to: 'sessions#create'
-  get 'log-out', to: 'sessions#destroy'
+  resource :profile, only: %i[edit update]
+  resource :password, only: %i[edit update]
+  resources :sessions, only: %i[new create destroy]
   get 'api', to: 'apipie/apipies#index'
 
   namespace :api do

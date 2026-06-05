@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "skills": {
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "bffe3d08cfe92ebad63699f74ce29e35c19850ebfbf474c1463183cfe34d6a09"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "82fb11a63fb1e35ee2469516ed02d54695f783115b1540c0e783197af4240a3a"
+    },
+    "rails-code-review": {
+      "source": "igmarin/rails-agent-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "b0a382f0cdc36d0ae790a4abcd603b8aa0c4d31efa21335a21c548b4527fba86"
+    },
+    "rails-guides": {
+      "source": "lucianghinda/superpowers-ruby",
+      "sourceType": "autoskills-registry",
+      "computedHash": "abe53855b0d2813b7a873606e5d0eb34da37f34691ddfbae3c2f42ddbd3a742e"
+    },
+    "rails-migration-safety": {
+      "source": "igmarin/rails-agent-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "dec88aee2f58e4bfea4d31137d5b506a677a3678b195b91b3face4c849eea45d"
+    },
+    "rails-security-review": {
+      "source": "igmarin/rails-agent-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "93abb5b25aa63cc618076f3f8e221584f6eebccc8b2f1234029bd9636656615a"
+    },
+    "rails-stack-conventions": {
+      "source": "igmarin/rails-agent-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "398aafac2767e857a201b989a253a99e956483efbe9dbcfdbcc9810a11b9282c"
+    },
+    "rails-upgrade": {
+      "source": "ombulabs/claude-code_rails-upgrade-skill",
+      "sourceType": "autoskills-registry",
+      "computedHash": "c169fb5846007fac9965ce6c4719c016a8b77285c180d36e8d379ffd455aaa9e"
+    },
+    "redis-development": {
+      "source": "redis/agent-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "cd8552ac8564c4d2540fd486605a7e7cf081a40521eec4fa74548452a51024b3"
+    },
+    "ruby": {
+      "source": "lucianghinda/superpowers-ruby",
+      "sourceType": "autoskills-registry",
+      "computedHash": "3747fdec2cfd63444b9b4a0c6db092f753575a80cfb1c838606ee28eaf30268b"
+    },
+    "ruby-on-rails-best-practices": {
+      "source": "sergiodxa/agent-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "6d781efda2468d3858da9722a0e018789ccfd3a2e23c9e5f4c13d98c071608b3"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "c184da724d1c61ad077f27418ea8e7e88fd54bcdf98165e18be7e4681cbd5e20"
+    }
+  }
+}

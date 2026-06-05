@@ -30,7 +30,6 @@ class Api::CardsController < ApiController
   param_group :card
   def create
     @card = Card.new(card_params)
-
     if @card.save
       render json: @card, status: :created
     else
@@ -57,7 +56,7 @@ class Api::CardsController < ApiController
   api :POST, '/cards/auth', 'Validates a card'
   param_group :auth
   def auth
-    @card = Card.auth(auth_card_params[:number], auth_card_params[:pin])
+    @card = CardAuthQuery.call(number: auth_card_params[:number], pin: auth_card_params[:pin])
 
     if @card.present?
       render json: @card, status: :created
@@ -75,7 +74,7 @@ class Api::CardsController < ApiController
   def set_cards
     return @cards = Card.all unless account_params[:account_id].present?
 
-    @cards = Card.where(account_id: account_params[:account_id])
+    @cards = CardsForAccountQuery.call(account_id: account_params[:account_id])
   end
 
   def card_params

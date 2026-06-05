@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def page
-    page_title = find_page_title(request.path)
-    page_title || 'Dashboard'
-  end
-
   def format_operation_date(date)
     return unless date
 
@@ -59,18 +54,14 @@ module ApplicationHelper
   end
 
   def menu_link(path, text)
-    current_path = path == request.path
+    active = content_for(:active_menu) == path
     active_classes = 'bg-[#1A5B61] text-white rounded-md px-3 py-2 text-sm font-bold'
     default_classes = 'text-[#1A5B61] hover:bg-[#1A5B61] hover:text-white rounded-md px-3 py-2 text-sm font-bold'
-    content_tag(:a, text, href: path, class: current_path ? active_classes : default_classes)
+    content_tag(:a, text, href: path, class: active ? active_classes : default_classes)
   end
 
-  private
-
-  def find_page_title(path)
-    return 'Dashboard' if path == root_path
-    return 'New Transfer' if path == new_transfer_path
-    return 'New Deposit' if path == new_deposit_path
-    return 'New Withdrawal' if path == new_withdraw_path
+  # app/helpers/operations_helper.rb
+  def path_for_operation(operation)
+    Rails.application.routes.url_helpers.send("#{operation.kind}_path", operation)
   end
 end

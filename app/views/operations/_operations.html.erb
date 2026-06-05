@@ -1,1 +1,8 @@
-<%= render partial: "operations/operation", collection: operations %>
+<% if operations.any? %>
+  <%= render partial: "operations/operation", collection: operations %>
+<% else %>
+  <div class="text-center py-8 text-gray-600">
+    <p class="text-4xl font-['Raleway'] mb-2"><%= t('operations.no_operations') %></p>
+    <p class="text-xl font-['Raleway']"><%= t('operations.no_operations_message') %></p>
+  </div>
+<% end %>

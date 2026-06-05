@@ -1,6 +1,57 @@
 es:
+  common:
+    back: "Volver"
+    login: "Iniciar sesión"
+    logout: "Cerrar sesión"
+    register: "Registrarse"
+    home: "Inicio"
+    dashboard: "Panel de control"
+    accounts: "Cuentas"
+    cards: "Tarjetas"
+  profile:
+    title: "Mi perfil"
+    edit: "Editar perfil"
+    update: "Actualizar perfil"
+  password:
+    title: "Cambiar contraseña"
+    edit: "Cambiar contraseña"
+    update: "Actualizar contraseña"
+    new: "Nueva contraseña"
+    confirmation: "Confirmar contraseña"
+  date:
+    month_names:
+      [
+        ~,
+        Enero,
+        Febrero,
+        Marzo,
+        Abril,
+        Mayo,
+        Junio,
+        Julio,
+        Agosto,
+        Septiembre,
+        Octubre,
+        Noviembre,
+        Diciembre,
+      ]
+  time:
+    formats:
+      long: "%d de %B de %Y a las %H:%M"
   operations:
     title: "Operaciones"
+    detail_title: "Detalle de operación"
+    details: "Detalles de la operación"
+    id: "ID de operación"
+    date: "Fecha"
+    type: "Tipo"
+    new_deposit: "Nuevo depósito"
+    new_withdrawal: "Hacer retiro"
+    new_transfer: "Nueva transferencia"
+    kind:
+      deposit: "Depósito"
+      withdrawal: "Retiro"
+      transfer: "Transferencia"
     deposit: "Depósito: %{concept}"
     withdrawal: "Retiro: %{concept}"
     transfer: "Transferencia: %{concept}"
@@ -10,7 +61,7 @@ es:
     account: "Cuenta"
     card: "Tarjeta"
     main_account: "Cuenta principal"
-    total_operations: 
+    total_operations:
       zero: "%{count} operaciones totales"
       one: "%{count} operación total"
       other: "%{count} operaciones totales"
@@ -18,16 +69,16 @@ es:
     no_operations_message: "Comienza realizando depósitos, transferencias o retiros"
     time_ago:
       less_than_minute: "hace menos de un minuto"
-      x_minutes: 
+      x_minutes:
         one: "hace %{count} minuto"
         other: "hace %{count} minutos"
-      about_x_hours: 
+      about_x_hours:
         one: "hace aproximadamente %{count} hora"
         other: "hace aproximadamente %{count} horas"
-      x_hours: 
+      x_hours:
         one: "hace %{count} hora"
         other: "hace %{count} horas"
-      x_days: 
+      x_days:
         one: "hace %{count} día"
         other: "hace %{count} días"
       unknown: "hace tiempo desconocido"
@@ -35,19 +86,66 @@ es:
       account: "Cuenta: %{name} (%{email})"
       card: "Tarjeta: %{number}"
       unknown: "Desconocido"
-  hello: "Hola mundo"
   activerecord:
+    models:
+      account:
+        one: "Cuenta"
+        other: "Cuentas"
+      card:
+        one: "Tarjeta"
+        other: "Tarjetas"
+      operation:
+        one: "Operación"
+        other: "Operaciones"
+
     errors:
       models:
         account:
           attributes:
             email:
-              taken: "ya está en uso"
+              taken: "El correo electrónico ya está en uso"
             phone:
-              wrong_length: "debe tener 10 caracteres"
+              wrong_length: "El número de teléfono debe tener 10 dígitos"
             password_confirmation:
-              confirmation: "no coincide con la contraseña"
-        card:
+              confirmation: "La confirmación de contraseña no coincide"
+        operation:
           attributes:
-            pin:
-              wrong_length: "debe tener 4 caracteres"
+            amount:
+              not_a_number: "El monto debe ser un número"
+              greater_than: "El monto debe ser mayor que 0"
+            operationable_id:
+              blank: "La tarjeta debe ser seleccionada"
+            concept:
+              blank: "El concepto no puede estar vacío"
+
+      messages:
+        record_invalid: "La validación falló: %{errors}"
+
+  helpers:
+    submit:
+      create: "Crear %{model}"
+      update: "Actualizar %{model}"
+      submit: "Guardar %{model}"
+    label:
+      account:
+        name: "Nombre completo"
+        email: "Correo electrónico"
+        phone: "Número de teléfono"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de contraseña"
+      card:
+        concept: "Concepto"
+        card_number: "Número de tarjeta"
+        expiration_date: "Fecha de expiración (MM/YY)"
+        cvv: "CVV"
+        pin: "PIN"
+      operation:
+        concept: "Concepto"
+        amount: "Monto"
+        operationable_id: "Tarjeta"
+  placeholders:
+    operation:
+      concept: "Concepto de la operación: Ej. Pago de servicios"
+      amount: "Monto de la operación: Ej. 100.00"
+      select_card: "Selecciona la tarjeta para la operación"
+      destination_account: "Cuenta destino: Ej. email, CLABE, teléfono o ID"
